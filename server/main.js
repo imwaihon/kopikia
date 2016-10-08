@@ -63,13 +63,39 @@ Meteor.methods({
         $set: menuItemState
       }
     );
+
+    return { success: true };
   },
-  'vendor.makeOrder'({ menuId, fields }) {
 
+  // TODO(waihon): Eventually do some caluculations server-sided.
+  'vendor.makeOrder'({ menuId, vendorId, userId, items, totalPrice }) {
+    const orderState = {
+      menuId: menuId,
+      vendorId: vendorId,
+      userId: this.userId,
+      orderTime: Date.now(),
+      items: items,
+      isVendor: true,
+      totalPrice: totalPrice,
+      paymentResolved: true
+    };
+
+    Orders.insert(orderState);
   },
 
-  'customer.makeOrder'({ menuId, fields }) {
+  'customer.makeOrder'({ menuId, vendorId, userId, items, totalPrice }) {
+    const orderState = {
+      menuId: menuId,
+      vendorId: vendorId,
+      userId: this.userId,
+      orderTime: Date.now(),
+      items: items,
+      isVendor: false,
+      totalPrice: totalPrice,
+      paymentResolved: true
+    };
 
+    Orders.insert(orderState);
   },
   'customer.checkout'() {
 
