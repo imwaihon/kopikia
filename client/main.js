@@ -51,6 +51,34 @@ Meteor.methods({
 
 		return result;
 	},
+
+	'vendor.getMenuRatio': function(start, end, menu) {
+		temp_result = {};
+		var menuId;
+		for (menuId in menu) {
+			temp_result[menuId] = Orders.find({'menuId' : menuId, 'orderTime' : {$gte:start, $lte:end}}, {'orderNum':1).fetch();
+		}
+
+		result = {};
+		var menuId;
+		total = 0
+		for (menuId in menu) {
+			result[menuId] = 0;
+			for (i=0;i<temp_result[menuId].length;i++){
+				result[menuId] = result[menuId] + temp_result[menuId][i]['orderNum'];
+			}
+
+			total = total + result[menuId]
+		}
+
+		final_result = {};
+		var menuId;
+		for (menuId in menu) {
+			final_result[menuId] = result[menuId]/total;
+		}
+
+		return final_result;
+	},
 });
 
 
