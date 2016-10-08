@@ -25,3 +25,5 @@ semantic:ui
 less
 kadira:flow-router
 kadira:blaze-layout
+accounts-ui
+accounts-password
