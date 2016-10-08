@@ -68,7 +68,7 @@ Meteor.methods({
 				result[menuId] = result[menuId] + temp_result[menuId][i]['orderNum'];
 			}
 
-			total = total + result[menuId]
+			total = total + result[menuId];
 		}
 
 		return result;
