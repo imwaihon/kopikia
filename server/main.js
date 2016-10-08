@@ -3,6 +3,11 @@ import { Vendors, Orders, Menus } from '/lib/collections.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
+
+  // Remove all data from mongoDB at startup
+  Vendors.remove({});
+  Orders.remove({});
+  Menus.remove({});
 });
 
 Meteor.methods({
@@ -18,8 +23,10 @@ Meteor.methods({
     return { success: true };
   },
 
-  'vendor.addMenuItem'({ menuId, category, name, description, price }) {
+  // TODO(waihon): make it such that itemId is auto generated, not user provided.
+  'vendor.addMenuItem'({ itemId, menuId, category, name, description, price }) {
     const menuItemState = {
+      itemId: itemId,
       vendorId: this.userId,
       menuId: menuId,
       category: category,
@@ -47,7 +54,7 @@ Meteor.methods({
     const menuItemState = {
       vendorId: this.userId,
       menuId: menuId,
-      categoryId: categoryId,
+      category: category,
       name: name,
       description: description,
       price: price
@@ -57,7 +64,7 @@ Meteor.methods({
       {
         _id: menuId,
         vendorId: this.userId,
-        "items._id": itemId
+        "items.itemId": itemId
       },
       {
         $set: menuItemState
@@ -97,6 +104,7 @@ Meteor.methods({
 
     Orders.insert(orderState);
   },
+
   'customer.checkout'() {
 
   },
