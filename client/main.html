@@ -3,91 +3,126 @@
 </head>
 
 <body>
-  <h1>Welcome to Kopikia!</h1>
-
-  {{#if currentUser}}
-      {{> home}}
-  {{else}}
-      {{> loginButtons}}
-  {{/if}}
-
-	<div class="ui four column doubling stackable grid container">
-		<!-- {{#each menuitem}} -->
-		<div class="ui link cards"> 
-			<div class="ui card">
-				<div class="ui center aligned container">
-				  <div class="ui center aligned image">
-				    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
-				  </div>
-				</div>
-				<div class="content">
-				  	<span class="right floated">
-						<button class="ui labeled icon button">
-						  <i class="plus icon"></i>
-						  Order
-						</button>
-					</span>
-					<p>Hokkien Mee</p>
-					<i class="money icon"></i>
-				    $3.00
-				</div>
-			</div>
-						<div class="ui card">
-				<div class="ui center aligned container">
-				  <div class="ui center aligned image">
-				    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
-				  </div>
-				</div>
-				<div class="content">
-				  	<span class="right floated">
-						<button class="ui labeled icon button">
-						  <i class="plus icon"></i>
-						  Order
-						</button>
-					</span>
-					<p>Hokkien Mee</p>
-					<i class="money icon"></i>
-				    $3.00
-				</div>
-			</div>
-
-			<div class="ui card">
-				<div class="ui center aligned container">
-				  <div class="ui center aligned image">
-				    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
-				  </div>
-				</div>
-				<div class="content">
-				  	<span class="right floated">
-						<button class="ui labeled icon button">
-						  <i class="plus icon"></i>
-						  Order
-						</button>
-					</span>
-					<p>Hokkien Mee</p>
-					<i class="money icon"></i>
-				    $3.00
-				</div>
-			</div>
-
-		</div>
-		<!-- {{/each}} -->
-	</div>
-
-
+  {{> appLayout}}
 </body>
 
-
-<template name="home">
-  <p>You are in!</p>
-  <p><input type='button' class="logout" value="Logout"/></p>
+<template name="appLayout">
+  {{> Template.dynamic template=main}}
 </template>
 
+<template name="auth">
+  {{> loginButtons}}
+</template>
+
+<template name="vendorHome">
+  <div class="ui grid">
+    <!-- TODO(waihon): move this out to seperate app layout. -->
+    <div class="two wide column">
+      <div class="ui left fixed vertical labeled icon menu">
+        <a class="item">
+          <i class="gamepad icon"></i>
+          Menu
+        </a>
+        <a class="item">
+          <i class="video camera icon"></i>
+          Dashboard
+        </a>
+        <a class="item">
+          <i class="video camera icon"></i>
+          Settings
+        </a>
+        <a class="item logout">
+          <i class="video play icon"></i>
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <div class="thirteen wide column">
+      <div class="ui basic segment">
+        KopiKia
+      </div>
+      <div class="ui segment">
+        <div class="ui three column grid">
+          <div class="column">
+            <div class="ui fluid card">
+              <div id="createMenu" class="ui bottom attached green button">
+                <i class="add icon"></i>
+                Create New Menu
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<!-- Work In Progress -->
+<template name="customerHome">
+</template>
+
+<template name="vendorMenu">
+  <div class="ui grid">
+    <!-- TODO(waihon): move this out to seperate app layout. -->
+    <div class="two wide column">
+      <div class="ui left fixed vertical labeled icon menu">
+        <a class="item">
+          <i class="gamepad icon"></i>
+          Menu
+        </a>
+        <a class="item">
+          <i class="video camera icon"></i>
+          Dashboard
+        </a>
+        <a class="item">
+          <i class="video camera icon"></i>
+          Settings
+        </a>
+        <a class="item logout">
+          <i class="video play icon"></i>
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <div class="thirteen wide column">
+      <div class="ui basic segment">
+        KopiKia
+      </div>
+      <div class="ui four column grid">
+        <div class="ui link cards">
+          {{#each menuItem in menuItems}}
+            <div class="ui card">
+              <div class="ui center aligned container">
+                <div class="ui center aligned image">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
+                </div>
+              </div>
+              <div class="content">
+                  <span class="right floated">
+                  <button class="ui labeled icon green button">
+                    <i class="plus icon"></i>
+                    Order
+                  </button>
+                </span>
+                <p>{{menuItem.name}}</p>
+                <i class="money icon"></i>
+                  ${{menuItem.price}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <template name="customer_menu">
 	<div class="ui four column doubling stackable grid container">
 		<!-- {{#each menuitem}} -->
-		<div class="ui link cards"> 
+		<div class="ui link cards">
 			<div class="ui card">
 				<div class="ui center aligned container">
 				  <div class="ui center aligned image">
@@ -109,7 +144,67 @@
 		</div>
 		<!-- {{/each}} -->
 	</div>
+
+  <div class="ui four column doubling stackable grid container">
+    <!-- {{#each menuitem}} -->
+    <div class="ui link cards">
+      <div class="ui card">
+        <div class="ui center aligned container">
+          <div class="ui center aligned image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
+          </div>
+        </div>
+        <div class="content">
+            <span class="right floated">
+            <button class="ui labeled icon button">
+              <i class="plus icon"></i>
+              Order
+            </button>
+          </span>
+          <p>Hokkien Mee</p>
+          <i class="money icon"></i>
+            $3.00
+        </div>
+      </div>
+            <div class="ui card">
+        <div class="ui center aligned container">
+          <div class="ui center aligned image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
+          </div>
+        </div>
+        <div class="content">
+            <span class="right floated">
+            <button class="ui labeled icon button">
+              <i class="plus icon"></i>
+              Order
+            </button>
+          </span>
+          <p>Hokkien Mee</p>
+          <i class="money icon"></i>
+            $3.00
+        </div>
+      </div>
+
+      <div class="ui card">
+        <div class="ui center aligned container">
+          <div class="ui center aligned image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
+          </div>
+        </div>
+        <div class="content">
+            <span class="right floated">
+            <button class="ui labeled icon button">
+              <i class="plus icon"></i>
+              Order
+            </button>
+          </span>
+          <p>Hokkien Mee</p>
+          <i class="money icon"></i>
+            $3.00
+        </div>
+      </div>
+
+    </div>
+    <!-- {{/each}} -->
+  </div>
 </template>
-
-
-
