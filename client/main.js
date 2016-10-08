@@ -52,7 +52,7 @@ Meteor.methods({
 		return result;
 	},
 
-	'vendor.getMenuRatio': function(start, end, menu) {
+	'vendor.getMenuServings': function(start, end, menu) {
 		temp_result = {};
 		var menuId;
 		for (menuId in menu) {
@@ -71,13 +71,7 @@ Meteor.methods({
 			total = total + result[menuId]
 		}
 
-		final_result = {};
-		var menuId;
-		for (menuId in menu) {
-			final_result[menuId] = result[menuId]/total;
-		}
-
-		return final_result;
+		return result;
 	},
 });
 
