@@ -13,7 +13,7 @@ Template.home.events({
     }
 });
 
-// Template.body.helpers({
+// Template.body.helpers({          // column chart
 //   createChart: function () {
 //     // Gather data: 
 //     // Use Meteor.defer() to craete chart after DOM is ready:
@@ -80,69 +80,126 @@ Template.home.events({
 // }
 // });
 
-Template.body.helpers({
+// Template.body.helpers({          //stacked bar chart
+//   createChart: function () {
+//     // Gather data: 
+//     // Use Meteor.defer() to craete chart after DOM is ready:
+//     Meteor.defer(function() {
+//       // Create standard Highcharts chart with options:
+//       Highcharts.chart('chart', {chart: {
+//             type: 'column'
+//         },
+//         title: {
+//             text: 'Stacked column chart'
+//         },
+//         xAxis: {
+//             categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+//         },
+//         yAxis: {
+//             min: 0,
+//             title: {
+//                 text: 'Total drink consumption'
+//             },
+//             stackLabels: {
+//                 enabled: true,
+//                 style: {
+//                     fontWeight: 'bold',
+//                     color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+//                 }
+//             }
+//         },
+//         legend: {
+//             align: 'right',
+//             x: -30,
+//             verticalAlign: 'top',
+//             y: 25,
+//             floating: true,
+//             backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+//             borderColor: '#CCC',
+//             borderWidth: 1,
+//             shadow: false
+//         },
+//         tooltip: {
+//             headerFormat: '<b>{point.x}</b><br/>',
+//             pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+//         },
+//         plotOptions: {
+//             column: {
+//                 stacking: 'normal',
+//                 dataLabels: {
+//                     enabled: true,
+//                     color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+//                 }
+//             }
+//         },
+//         series: [{
+//             name: 'Iced Milo',
+//             data: [5, 3, 4, 7, 2, 9, 11]
+//         }, {
+//             name: 'Kopi-O',
+//             data: [2, 2, 3, 2, 1, 7, 12]
+//         }, {
+//             name: 'Kopi-C',
+//             data: [3, 4, 4, 2, 5, 8, 11]
+//         }]
+//     });
+// });
+//       }
+//     });
+
+Template.body.helpers({         //pie chart
   createChart: function () {
     // Gather data: 
     // Use Meteor.defer() to craete chart after DOM is ready:
     Meteor.defer(function() {
       // Create standard Highcharts chart with options:
-      Highcharts.chart('chart', {chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Stacked column chart'
-        },
-        xAxis: {
-            categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Total drink consumption'
+      Highcharts.chart('chart', {
+                    chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
             },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+            title: {
+                text: 'Best Selling Food January, 2015 to May, 2015'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
                 }
-            }
-        },
-        legend: {
-            align: 'right',
-            x: -30,
-            verticalAlign: 'top',
-            y: 25,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-            borderColor: '#CCC',
-            borderWidth: 1,
-            shadow: false
-        },
-        tooltip: {
-            headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-        },
-        plotOptions: {
-            column: {
-                stacking: 'normal',
-                dataLabels: {
-                    enabled: true,
-                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
-                }
-            }
-        },
-        series: [{
-            name: 'Iced Milo',
-            data: [5, 3, 4, 7, 2, 9, 11]
-        }, {
-            name: 'Kopi-O',
-            data: [2, 2, 3, 2, 1, 7, 12]
-        }, {
-            name: 'Kopi-C',
-            data: [3, 4, 4, 2, 5, 8, 11]
-        }]
-    });
+            },
+            series: [{
+                name: 'Food',
+                colorByPoint: true,
+                data: [{
+                    name: 'Char Kway Teow',
+                    y: 56.33
+                }, {
+                    name: 'Fried Carrot Cake',
+                    y: 24.03
+                }, {
+                    name: 'Rojak',
+                    y: 10.38
+                }, {
+                    name: 'Beancurd',
+                    y: 4.77
+                }, {
+                    name: 'Nasi Lemak',
+                    y: 0.91
+                }, {
+                    name: 'You Tiao',
+                    y: 0.2
+                }]
+            }]
+        });
+      });
+    }
 });
-      }
-    });
