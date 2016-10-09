@@ -11,7 +11,13 @@
       {{> loginButtons}}
   {{/if}}
 
-	<div id="chart">{{createChart}}</div>
+
+<div class="ui left action input">
+  <button class="ui teal labeled icon button">
+    <i class="cart icon"></i>
+    Checkout
+  </button>
+</div>
 
 </body>
 
@@ -55,3 +61,28 @@
 	<div id="chart">{{createChart}}</div>
 </template>
  -->
+
+<template name="checkout">
+	<table class="ui unstackable striped table">
+		<thead class="full width">
+			<tr>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Cost</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Hokkien Mee</td>
+				<td>2</td>
+				<td>$6.00</td>
+			</tr>
+			<tr>
+				<td>Chicken Rice</td>
+				<td>2</td>
+				<td>$6.00</td>
+			</tr>
+		</tbody>
+	</table>
+	<button class="positive ui button">Confirm Order</button>
+</template>

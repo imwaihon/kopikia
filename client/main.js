@@ -13,6 +13,11 @@ Template.home.events({
     }
 });
 
+Template.checkout.helpers({
+    
+});
+
+
 // Template.body.helpers({          // column chart
 //   createChart: function () {
 //     // Gather data: 
