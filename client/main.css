@@ -4,5 +4,30 @@
   margin: 0 auto;
   padding-top: 17px;
   background: white;
+ 
 
 }
+
+div.segment{
+	color: white;
+	font-family: Times New Roman, Georgia, Serif;
+}
+
+body {
+	
+	background-color: white;
+	
+}
+
+#boxy {
+	box-shadow: 5px 5px 2px #888888;
+}
+
+#top {
+	background-color: #4e3318;
+		font-size: 4em;
+}
+#bar{
+	background-color: #4e3318
+}
+

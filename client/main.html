@@ -18,7 +18,7 @@
   <div class="ui grid">
     <!-- TODO(waihon): move this out to seperate app layout. -->
     <div class="two wide column">
-      <div class="ui left fixed vertical labeled icon menu">
+      <div class="ui left fixed vertical labeled icon menu own-class">
         <a class="item">
           <i class="gamepad icon"></i>
           Menu
@@ -40,7 +40,7 @@
 
     <div class="thirteen wide column">
       <div class="ui basic segment">
-        KopiKia
+        KopiKia 
       </div>
       <div class="ui segment">
         <div class="ui three column grid">
@@ -67,34 +67,34 @@
   <div class="ui grid">
     <!-- TODO(waihon): move this out to seperate app layout. -->
     <div class="two wide column">
-      <div class="ui left fixed vertical labeled icon menu">
-        <a class="item">
-          <i class="gamepad icon"></i>
+      <div id="bar" class="ui left fixed vertical labeled inverted icon menu">
+        <a class="red item">
+          <i class="grid layout icon"></i>
           Menu
         </a>
-        <a class="item">
-          <i class="video camera icon"></i>
+        <a class="blue item">
+          <i class="dashboard icon"></i>
           Dashboard
         </a>
-        <a class="item">
-          <i class="video camera icon"></i>
+        <a class="green item">
+          <i class="setting icon"></i>
           Settings
         </a>
         <a class="item logout">
-          <i class="video play icon"></i>
+         <i class="sign out icon"></i>
           Logout
         </a>
-      </div>
+	  </div>
     </div>
 
     <div class="thirteen wide column">
-      <div class="ui basic segment">
+      <div id="top" class="ui basic segment">
         KopiKia
       </div>
       <div class="ui four column grid">
         <div class="ui link cards">
           {{#each menuItem in menuItems}}
-            <div class="ui card">
+            <div id="boxy" class="ui card">
               <div class="ui center aligned container">
                 <div class="ui center aligned image">
                   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
@@ -102,7 +102,7 @@
               </div>
               <div class="content">
                   <span class="right floated">
-                  <button class="ui labeled icon green button">
+                   <button class="ui inverted violet button">
                     <i class="plus icon"></i>
                     Order
                   </button>
