@@ -22,7 +22,7 @@ function magicallyCreateFilledMenuThen(thenFunction) {
       name: "Milo",
       description: "milo",
       price: 1.50,
-      imageSource: "https://readysetfoogo.files.wordpress.com/2012/11/photo-2-17.jpg"
+      imageSource: "http://i3.mirror.co.uk/incoming/article6485860.ece/ALTERNATES/s615b/Coffee.jpg"
     }, (err, res) => {
       Meteor.call('vendor.addMenuItem', {
         itemId: "coffeeid",
@@ -32,7 +32,7 @@ function magicallyCreateFilledMenuThen(thenFunction) {
         name: "Coffee",
         description: "coffee",
         price: 1.20,
-        imageSource: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Blue_Bottle,_Kyoto_Style_Ice_Coffee_(5909775445).jpg"
+        imageSource: "http://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Coffee-PNG/Coffee_Cup_with_Sugar_Cubes.png?m=1399672800"
       }, (err, res) => {
         Meteor.call('vendor.addMenuItem', {
           itemId: "milkteaid",
@@ -111,6 +111,10 @@ Template.vendorDashboard.events({
         event.preventDefault();
         Meteor.logout();
     },
+    'click #menu': function(event) {
+        event.preventDefault();
+        FlowRouter.go('/');
+    },
 });
 
 Template.vendorDashboard.helpers({
@@ -137,8 +141,8 @@ Template.vendorDashboard.helpers({
                   '2200'
       ];
 
-      var chickenRiceData = [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4, 49.7, 36.0, 30.8];
-      var duckRiceData = [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3, 50.0, 48.7, 39.0];
+      var chickenRiceData = [49, 71, 106, 129, 144, 176, 135, 148, 216, 194, 95, 54, 49, 36, 30];
+      var duckRiceData = [83, 78, 98, 93, 106, 84, 105, 104, 91, 83, 106, 92, 50, 48, 39];
 
       // Create standard Highcharts chart with options:
       var chart1 = Highcharts.chart('chart1', {

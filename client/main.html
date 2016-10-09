@@ -18,29 +18,34 @@
   <div class="ui grid">
     <!-- TODO(waihon): move this out to seperate app layout. -->
     <div class="two wide column">
-      <div class="ui left fixed vertical labeled icon menu own-class">
+      <div id="sidebar" class="ui left fixed vertical labeled inverted icon menu">
         <a class="item">
-          <i class="gamepad icon"></i>
+          <i class="grid layout icon"></i>
           Menu
         </a>
         <a id="dashboard" class="item">
-          <i class="video camera icon"></i>
+          <i class="dashboard icon"></i>
           Dashboard
         </a>
         <a class="item">
-          <i class="video camera icon"></i>
+          <i class="setting icon"></i>
           Settings
         </a>
         <a id="logout" class="item">
-          <i class="video play icon"></i>
+         <i class="sign out icon"></i>
           Logout
         </a>
       </div>
     </div>
 
     <div class="thirteen wide column">
-      <div class="ui basic segment">
-        KopiKia 
+      <div id="topbar" class="ui basic segment">
+        <h2 class="ui inverted header">
+          <i class="coffee icon"></i>
+          <div class="content">
+            KopiKia
+          </div>
+        </h2>
       </div>
       <div class="ui segment">
         <div class="ui three column grid">
@@ -67,16 +72,16 @@
   <div class="ui grid">
     <!-- TODO(waihon): move this out to seperate app layout. -->
     <div class="two wide column">
-      <div id="bar" class="ui left fixed vertical labeled inverted icon menu">
-        <a class="red item">
+      <div id="sidebar" class="ui left fixed vertical labeled inverted icon menu">
+        <a class="item">
           <i class="grid layout icon"></i>
           Menu
         </a>
-        <a id="dashboard" class="blue item">
+        <a id="dashboard" class="item">
           <i class="dashboard icon"></i>
           Dashboard
         </a>
-        <a class="green item">
+        <a class="item">
           <i class="setting icon"></i>
           Settings
         </a>
@@ -88,28 +93,27 @@
     </div>
 
     <div class="thirteen wide column">
-      <div id="top" class="ui basic segment">
-        KopiKia
+      <div id="topbar" class="ui basic segment">
+        <h2 class="ui inverted header">
+          <i class="coffee icon"></i>
+          <div class="content">
+            KopiKia
+          </div>
+        </h2>
       </div>
       <div class="ui four column grid">
         <div class="ui link cards">
           {{#each menuItem in menuItems}}
-            <div id="boxy" class="ui card">
-              <div class="ui center aligned container">
-                <div class="ui center aligned image">
-                  <img src={{menuItem.imageSource}}>
-                </div>
+            <div class="card menu-card">
+              <div class="image menu-image">
+                <img class="ui medium image" src={{menuItem.imageSource}}>
               </div>
               <div class="content">
-                  <span class="right floated">
-                   <button class="ui inverted violet button">
-                    <i class="plus icon"></i>
-                    Order
-                  </button>
-                </span>
-                <p>{{menuItem.name}}</p>
-                <i class="money icon"></i>
-                  ${{menuItem.price}}
+                <h3>{{menuItem.name}} ${{menuItem.price}}0</h3>
+              </div>
+              <div class="ui bottom attached green button">
+                <i class="plus icon"></i>
+                Order
               </div>
             </div>
           {{/each}}
@@ -123,21 +127,21 @@
   <div class="ui grid">
     <!-- TODO(waihon): move this out to seperate app layout. -->
     <div class="two wide column">
-      <div class="ui left fixed vertical labeled icon menu">
-        <a class="item">
-          <i class="gamepad icon"></i>
+      <div id="sidebar" class="ui left fixed vertical labeled inverted icon menu">
+        <a id="menu" class="item">
+          <i class="grid layout icon"></i>
           Menu
         </a>
-        <a class="item">
-          <i class="video camera icon"></i>
+        <a id="dashboard" class="item">
+          <i class="dashboard icon"></i>
           Dashboard
         </a>
         <a class="item">
-          <i class="video camera icon"></i>
+          <i class="setting icon"></i>
           Settings
         </a>
         <a id="logout" class="item">
-          <i class="video play icon"></i>
+         <i class="sign out icon"></i>
           Logout
         </a>
       </div>

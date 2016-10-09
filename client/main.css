@@ -1,33 +1,17 @@
 /* CSS declarations go here */
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding-top: 17px;
-  background: white;
- 
-
+.menu-card {
+	box-shadow: 3px 3px 2px #888888;
 }
 
-div.segment{
-	color: white;
-	font-family: Times New Roman, Georgia, Serif;
+.menu-card .menu-image {
+  height: 250px;
 }
 
-body {
-	
-	background-color: white;
-	
-}
-
-#boxy {
-	box-shadow: 5px 5px 2px #888888;
-}
-
-#top {
+#topbar {
 	background-color: #4e3318;
-		font-size: 4em;
+  margin-bottom: 24px;
 }
-#bar{
+
+#sidebar {
 	background-color: #4e3318
 }
-
