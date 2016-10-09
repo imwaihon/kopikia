@@ -21,7 +21,8 @@ function magicallyCreateFilledMenuThen(thenFunction) {
       category: "Drinks",
       name: "Milo",
       description: "milo",
-      price: 1.50
+      price: 1.50,
+      imageSource: "https://readysetfoogo.files.wordpress.com/2012/11/photo-2-17.jpg"
     }, (err, res) => {
       Meteor.call('vendor.addMenuItem', {
         itemId: "coffeeid",
@@ -30,7 +31,8 @@ function magicallyCreateFilledMenuThen(thenFunction) {
         category: "Drinks",
         name: "Coffee",
         description: "coffee",
-        price: 1.20
+        price: 1.20,
+        imageSource: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Blue_Bottle,_Kyoto_Style_Ice_Coffee_(5909775445).jpg"
       }, (err, res) => {
         Meteor.call('vendor.addMenuItem', {
           itemId: "milkteaid",
@@ -39,7 +41,8 @@ function magicallyCreateFilledMenuThen(thenFunction) {
           category: "Drinks",
           name: "Milk Tea",
           description: "milk tea",
-          price: 1.30
+          price: 1.30,
+          imageSource: "https://static.menutabapp.com/img/original/2015/01/20/21222d4408377e8a6c1a9871f7050d75.jpeg"
         }, (err, res) => {
           Meteor.call('vendor.addMenuItem', {
             itemId: "bandungid",
@@ -48,7 +51,8 @@ function magicallyCreateFilledMenuThen(thenFunction) {
             category: "Drinks",
             name: "Bandung",
             description: "bandung",
-            price: 1.70
+            price: 1.70,
+            imageSource: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Bandung_Drinks.jpg"
           }, (err, res) => {
             thenFunction();
           });

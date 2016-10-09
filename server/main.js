@@ -24,7 +24,7 @@ Meteor.methods({
   },
 
   // TODO(waihon): make it such that itemId is auto generated, not user provided.
-  'vendor.addMenuItem'({ itemId, menuId, category, name, description, price }) {
+  'vendor.addMenuItem'({ itemId, menuId, category, name, description, price, imageSource }) {
     const menuItemState = {
       itemId: itemId,
       vendorId: this.userId,
@@ -32,7 +32,8 @@ Meteor.methods({
       category: category,
       name: name,
       description: description,
-      price: price
+      price: price,
+      imageSource: imageSource
     };
 
     Menus.update(
