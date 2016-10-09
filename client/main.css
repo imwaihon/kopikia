@@ -31,3 +31,9 @@ body {
 	background-color: #4e3318
 }
 
+div.auth{
+	margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+}
+
