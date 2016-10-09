@@ -23,7 +23,7 @@
           <i class="gamepad icon"></i>
           Menu
         </a>
-        <a class="item">
+        <a id="dashboard" class="item">
           <i class="video camera icon"></i>
           Dashboard
         </a>
@@ -31,7 +31,7 @@
           <i class="video camera icon"></i>
           Settings
         </a>
-        <a class="item logout">
+        <a id="logout" class="item">
           <i class="video play icon"></i>
           Logout
         </a>
@@ -72,7 +72,7 @@
           <i class="grid layout icon"></i>
           Menu
         </a>
-        <a class="blue item">
+        <a id="dashboard" class="blue item">
           <i class="dashboard icon"></i>
           Dashboard
         </a>
@@ -80,7 +80,7 @@
           <i class="setting icon"></i>
           Settings
         </a>
-        <a class="item logout">
+        <a id="logout" class="item">
          <i class="sign out icon"></i>
           Logout
         </a>
@@ -97,7 +97,7 @@
             <div id="boxy" class="ui card">
               <div class="ui center aligned container">
                 <div class="ui center aligned image">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
+                  <img src={{menuItem.imageSource}}>
                 </div>
               </div>
               <div class="content">
@@ -119,92 +119,46 @@
   </div>
 </template>
 
-<template name="customer_menu">
-	<div class="ui four column doubling stackable grid container">
-		<!-- {{#each menuitem}} -->
-		<div class="ui link cards">
-			<div class="ui card">
-				<div class="ui center aligned container">
-				  <div class="ui center aligned image">
-				    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
-				  </div>
-				</div>
-				<div class="content">
-				  	<span class="right floated">
-						<button class="ui labeled icon button">
-						  <i class="plus icon"></i>
-						  Order
-						</button>
-					</span>
-					<p>Hokkien Mee</p>
-					<i class="money icon"></i>
-				    $3.00
-				</div>
-			</div>
-		</div>
-		<!-- {{/each}} -->
-	</div>
-
-  <div class="ui four column doubling stackable grid container">
-    <!-- {{#each menuitem}} -->
-    <div class="ui link cards">
-      <div class="ui card">
-        <div class="ui center aligned container">
-          <div class="ui center aligned image">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
-          </div>
-        </div>
-        <div class="content">
-            <span class="right floated">
-            <button class="ui labeled icon button">
-              <i class="plus icon"></i>
-              Order
-            </button>
-          </span>
-          <p>Hokkien Mee</p>
-          <i class="money icon"></i>
-            $3.00
-        </div>
+<template name="vendorDashboard">
+  <div class="ui grid">
+    <!-- TODO(waihon): move this out to seperate app layout. -->
+    <div class="two wide column">
+      <div class="ui left fixed vertical labeled icon menu">
+        <a class="item">
+          <i class="gamepad icon"></i>
+          Menu
+        </a>
+        <a class="item">
+          <i class="video camera icon"></i>
+          Dashboard
+        </a>
+        <a class="item">
+          <i class="video camera icon"></i>
+          Settings
+        </a>
+        <a id="logout" class="item">
+          <i class="video play icon"></i>
+          Logout
+        </a>
       </div>
-            <div class="ui card">
-        <div class="ui center aligned container">
-          <div class="ui center aligned image">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
-          </div>
-        </div>
-        <div class="content">
-            <span class="right floated">
-            <button class="ui labeled icon button">
-              <i class="plus icon"></i>
-              Order
-            </button>
-          </span>
-          <p>Hokkien Mee</p>
-          <i class="money icon"></i>
-            $3.00
-        </div>
-      </div>
-
-      <div class="ui card">
-        <div class="ui center aligned container">
-          <div class="ui center aligned image">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Newton_HokkienMee.JPG/250px-Newton_HokkienMee.JPG">
-          </div>
-        </div>
-        <div class="content">
-            <span class="right floated">
-            <button class="ui labeled icon button">
-              <i class="plus icon"></i>
-              Order
-            </button>
-          </span>
-          <p>Hokkien Mee</p>
-          <i class="money icon"></i>
-            $3.00
-        </div>
-      </div>
-
     </div>
-    <!-- {{/each}} -->
+
+    <div class="thirteen wide column">
+      <div class="ui grid">
+        <div class="row">
+          <div class="column">
+            <div id="chart1">{{createChart1}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="eight wide column">
+            <div id="chart2">{{createChart2}}</div>
+          </div>
+          <div class="eight wide column">
+            <div id="chart3">{{createChart3}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
