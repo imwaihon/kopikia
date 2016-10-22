@@ -7,6 +7,9 @@ import { Vendors, Orders, Menus } from '/lib/collections.js'
 
 import './menus.html';
 
+// Create a local mongo collection for reactiveness.
+var LocalSelectedItems = new Mongo.Collection(null);
+
 Template.vendorMenu.events({
   'click #createMenu': function(event) {
     event.preventDefault();
@@ -28,6 +31,45 @@ Template.vendorMenu.helpers({
   }
 });
 
+Template.vendorPOS.onCreated(function () {
+  var self = this;
+
+  this.autorun(function () {
+    self.menuObj = Menus.findOne({
+      vendorId: Meteor.userId()
+    });
+  });
+});
+
+Template.vendorPOS.onRendered(function() {
+  var selectedItemsHeight = 500;
+  if (window.innerHeight > 500) {
+    selectedItemsHeight = window.innerHeight;
+  }
+
+  $('#posCards')
+  .css('height', selectedItemsHeight);
+
+  $('#selectedItemsList')
+  .css('height', selectedItemsHeight * 0.75)
+  .css('overflow', 'scroll');
+
+  // Allows for the right bar to 'stick' and not scroll with the rest of the
+  // cards.
+  $('.ui.sticky')
+  .sticky({
+    context: '#posCards'
+  });
+});
+
+Template.vendorPOS.events({
+  'click .menu-card': function(event, instance) {
+    event.preventDefault();
+    LocalSelectedItems.insert(
+      instance.menuObj.items[event.currentTarget.getAttribute('data-itemid')]);
+  },
+});
+
 Template.vendorPOS.helpers({
   'menuItems'() {
     var menu = Menus.findOne({
@@ -37,6 +79,10 @@ Template.vendorPOS.helpers({
     if (menu) {
       return menu.items;
     }
+  },
+
+  'selectedItems'() {
+    return LocalSelectedItems.find().fetch();
   }
 });
 
