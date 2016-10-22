@@ -7,7 +7,10 @@
 </body>
 
 <template name="appLayout">
-  {{> Template.dynamic template=main}}
+  <div class="ui grid">
+    {{> Template.dynamic template=sidebar}}
+    {{> Template.dynamic template=main}}
+  </div>
 </template>
 
 <template name="auth">
@@ -22,92 +25,44 @@
   </div>
 </template>
 
-<template name="vendorHome">
-  <div class="ui grid">
-    <!-- TODO(waihon): move this out to seperate app layout. -->
-    <div class="two wide column">
-      <div id="sidebar" class="ui left fixed vertical labeled inverted icon menu">
-        <a class="item">
-          <i class="grid layout icon"></i>
-          Menu
-        </a>
-        <a id="dashboard" class="item">
-          <i class="dashboard icon"></i>
-          Dashboard
-        </a>
-        <a class="item">
-          <i class="setting icon"></i>
-          Settings
-        </a>
-        <a id="logout" class="item">
-         <i class="sign out icon"></i>
-          Logout
-        </a>
-      </div>
+<template name="sidebar">
+  <div class="two wide column">
+    <div id="sidebar" class="ui left fixed vertical labeled inverted icon menu">
+      <a id="menu" class="item">
+        <i class="grid layout icon"></i>
+        Menu
+      </a>
+      <a id="pos" class="item">
+        <i class="shopping basket icon"></i>
+        POS
+      </a>
+      <a id="orders" class="item">
+        <i class="users icon"></i>
+        Orders
+      </a>
+      <a id="dashboard" class="item">
+        <i class="dashboard icon"></i>
+        Dashboard
+      </a>
+      <a id="settings" class="item">
+        <i class="setting icon"></i>
+        Settings
+      </a>
+      <a id="logout" class="item">
+       <i class="sign out icon"></i>
+        Logout
+      </a>
     </div>
-
-    <div class="thirteen wide column">
-      <div id="topbar" class="ui basic segment">
-        <h2 class="ui inverted header">
-          <i class="coffee icon"></i>
-          <div class="content">
-            KopiKia
-          </div>
-        </h2>
-      </div>
-      <div class="ui segment">
-        <div class="ui three column grid">
-          <div class="column">
-            <div class="ui fluid card">
-              <div id="createMenu" class="ui bottom attached green button">
-                <i class="add icon"></i>
-                Create New Menu
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </template>
 
-<!-- Work In Progress -->
-<template name="customerHome">
-</template>
-
 <template name="vendorMenu">
-  <div class="ui grid">
-    <!-- TODO(waihon): move this out to seperate app layout. -->
-    <div class="two wide column">
-      <div id="sidebar" class="ui left fixed vertical labeled inverted icon menu">
-        <a class="item">
-          <i class="grid layout icon"></i>
-          Menu
-        </a>
-        <a id="dashboard" class="item">
-          <i class="dashboard icon"></i>
-          Dashboard
-        </a>
-        <a class="item">
-          <i class="setting icon"></i>
-          Settings
-        </a>
-        <a id="logout" class="item">
-         <i class="sign out icon"></i>
-          Logout
-        </a>
-	  </div>
-    </div>
-
     <div class="thirteen wide column">
       <div id="topbar" class="ui basic segment">
-        <h2 class="ui inverted header">
-          <i class="coffee icon"></i>
-          <div class="content">
-            KopiKia
-          </div>
-        </h2>
+        <div id="createMenu" class="ui bottom attached green button">
+          <i class="add icon"></i>
+          Create New Menu
+        </div>
       </div>
       <div class="ui four column grid">
         <div class="ui link cards">
@@ -128,33 +83,9 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <template name="vendorDashboard">
-  <div class="ui grid">
-    <!-- TODO(waihon): move this out to seperate app layout. -->
-    <div class="two wide column">
-      <div id="sidebar" class="ui left fixed vertical labeled inverted icon menu">
-        <a id="menu" class="item">
-          <i class="grid layout icon"></i>
-          Menu
-        </a>
-        <a id="dashboard" class="item">
-          <i class="dashboard icon"></i>
-          Dashboard
-        </a>
-        <a class="item">
-          <i class="setting icon"></i>
-          Settings
-        </a>
-        <a id="logout" class="item">
-         <i class="sign out icon"></i>
-          Logout
-        </a>
-      </div>
-    </div>
-
     <div class="thirteen wide column">
       <div class="ui grid">
         <div class="row">
@@ -172,7 +103,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <template name="customerCheckout">

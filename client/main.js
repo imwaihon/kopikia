@@ -62,7 +62,7 @@ function magicallyCreateFilledMenuThen(thenFunction) {
   });
 }
 
-Template.vendorHome.events({
+Template.sidebar.events({
     'click #logout': function(event) {
         event.preventDefault();
         Meteor.logout();
@@ -71,27 +71,19 @@ Template.vendorHome.events({
         event.preventDefault();
         FlowRouter.go('/dashboard');
     },
-    'click #createMenu': function(event) {
-      event.preventDefault();
-      magicallyCreateFilledMenuThen(function() {
-        FlowRouter.go('/menu');
-      });
-    }
-});
-
-Template.vendorHome.onRendered(function () {
-
+    'click #menu': function(event) {
+        event.preventDefault();
+        FlowRouter.go('/');
+    },
 });
 
 Template.vendorMenu.events({
-    'click #logout': function(event) {
-        event.preventDefault();
-        Meteor.logout();
-    },
-    'click #dashboard': function(event) {
-        event.preventDefault();
-        FlowRouter.go('/dashboard');
-    },
+  'click #createMenu': function(event) {
+    event.preventDefault();
+    magicallyCreateFilledMenuThen(function() {
+      FlowRouter.go('/menu');
+    });
+  },
 });
 
 Template.vendorMenu.helpers({
@@ -104,17 +96,6 @@ Template.vendorMenu.helpers({
       return menu.items;
     }
   }
-});
-
-Template.vendorDashboard.events({
-    'click #logout': function(event) {
-        event.preventDefault();
-        Meteor.logout();
-    },
-    'click #menu': function(event) {
-        event.preventDefault();
-        FlowRouter.go('/');
-    },
 });
 
 Template.vendorDashboard.helpers({
