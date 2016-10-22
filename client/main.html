@@ -26,7 +26,7 @@
 </template>
 
 <template name="sidebar">
-  <div class="two wide column">
+  <div class="one wide column">
     <div id="sidebar" class="ui left fixed vertical labeled inverted icon menu">
       <a id="menu" class="item">
         <i class="grid layout icon"></i>
@@ -54,35 +54,6 @@
       </a>
     </div>
   </div>
-</template>
-
-<template name="vendorMenu">
-    <div class="thirteen wide column">
-      <div id="topbar" class="ui basic segment">
-        <div id="createMenu" class="ui bottom attached green button">
-          <i class="add icon"></i>
-          Create New Menu
-        </div>
-      </div>
-      <div class="ui four column grid">
-        <div class="ui link cards">
-          {{#each menuItem in menuItems}}
-            <div class="card menu-card">
-              <div class="image menu-image">
-                <img class="ui medium image" src={{menuItem.imageSource}}>
-              </div>
-              <div class="content">
-                <h3>{{menuItem.name}} ${{menuItem.price}}0</h3>
-              </div>
-              <div class="ui bottom attached green button">
-                <i class="plus icon"></i>
-                Order
-              </div>
-            </div>
-          {{/each}}
-        </div>
-      </div>
-    </div>
 </template>
 
 <template name="vendorDashboard">

@@ -10,58 +10,6 @@ import './main.html';
 // Highcharts API
 var Highcharts = require('highcharts/highstock');
 
-function magicallyCreateFilledMenuThen(thenFunction) {
-  Meteor.call('vendor.createMenu', { name: "best menu" }, (err, res) => {
-    var userId = Meteor.userId();
-    var menu = Menus.findOne({ vendorId: userId });
-    Meteor.call('vendor.addMenuItem', {
-      itemId: "miloid",
-      menuId: menu._id,
-      vendorId: userId,
-      category: "Drinks",
-      name: "Milo",
-      description: "milo",
-      price: 1.50,
-      imageSource: "http://i3.mirror.co.uk/incoming/article6485860.ece/ALTERNATES/s615b/Coffee.jpg"
-    }, (err, res) => {
-      Meteor.call('vendor.addMenuItem', {
-        itemId: "coffeeid",
-        menuId: menu._id,
-        vendorId: userId,
-        category: "Drinks",
-        name: "Coffee",
-        description: "coffee",
-        price: 1.20,
-        imageSource: "http://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Coffee-PNG/Coffee_Cup_with_Sugar_Cubes.png?m=1399672800"
-      }, (err, res) => {
-        Meteor.call('vendor.addMenuItem', {
-          itemId: "milkteaid",
-          menuId: menu._id,
-          vendorId: userId,
-          category: "Drinks",
-          name: "Milk Tea",
-          description: "milk tea",
-          price: 1.30,
-          imageSource: "https://static.menutabapp.com/img/original/2015/01/20/21222d4408377e8a6c1a9871f7050d75.jpeg"
-        }, (err, res) => {
-          Meteor.call('vendor.addMenuItem', {
-            itemId: "bandungid",
-            menuId: menu._id,
-            vendorId: userId,
-            category: "Drinks",
-            name: "Bandung",
-            description: "bandung",
-            price: 1.70,
-            imageSource: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Bandung_Drinks.jpg"
-          }, (err, res) => {
-            thenFunction();
-          });
-        });
-      });
-    });
-  });
-}
-
 Template.sidebar.events({
     'click #logout': function(event) {
         event.preventDefault();
@@ -75,27 +23,14 @@ Template.sidebar.events({
         event.preventDefault();
         FlowRouter.go('/');
     },
-});
-
-Template.vendorMenu.events({
-  'click #createMenu': function(event) {
-    event.preventDefault();
-    magicallyCreateFilledMenuThen(function() {
-      FlowRouter.go('/menu');
-    });
-  },
-});
-
-Template.vendorMenu.helpers({
-  'menuItems'() {
-    var menu = Menus.findOne({
-      vendorId: Meteor.userId()
-    });
-
-    if (menu) {
-      return menu.items;
-    }
-  }
+    'click #pos': function(event) {
+        event.preventDefault();
+        FlowRouter.go('/pos');
+    },
+    'click #orders': function(event) {
+        event.preventDefault();
+        FlowRouter.go('/orders');
+    },
 });
 
 Template.vendorDashboard.helpers({

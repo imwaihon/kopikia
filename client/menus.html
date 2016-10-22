@@ -1,0 +1,68 @@
+<template name="vendorMenu">
+    <div class="thirteen wide column">
+      <div id="topbar" class="ui basic segment">
+        <div id="createMenu" class="ui bottom attached green button">
+          <i class="add icon"></i>
+          Create New Menu
+        </div>
+      </div>
+        <div class="ui fluid stackable centered link cards">
+          {{#each menuItem in menuItems}}
+            <div class="card menu-card">
+              <!-- <div class="image menu-image">
+                <img class="ui small image" src={{menuItem.imageSource}}>
+              </div> -->
+              <div class="content">
+                <a class="header">{{menuItem.name}}</a>
+                <div class="meta">
+                  <a>${{menuItem.price}}</a>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="vendorPOS">
+    <div class="nine wide column">
+      <div id="topbar" class="ui basic segment">
+      </div>
+      <div class="ui four column grid">
+        <div class="ui fluid stackable centered link cards">
+          {{#each menuItem in menuItems}}
+            <div class="card menu-card">
+              <div class="content">
+                <a class="header">{{menuItem.name}}</a>
+                <div class="meta">
+                  <a>${{menuItem.price}}</a>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="six wide column">
+      <div class="ui basic segments">
+        <div class="ui segment">
+          <div class="ui items">
+            <div class="item">
+              <div class="content">
+                <a class="header">Header</a>
+                <div class="meta">
+                  <span>Description</span>
+                </div>
+                <div class="description">
+                  <p></p>
+                </div>
+                <div class="extra">
+                  Additional Details
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
