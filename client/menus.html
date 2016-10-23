@@ -50,18 +50,12 @@
           <div class="ui segment">
             <div class="item">
               <div class="content">
-                <a class="header">Total Price</a>
-                <div class="meta">
-                  <span></span>
-                </div>
-                <div class="description">
-                  <p></p>
-                </div>
+                <a class="ui header">Total Price: {{selectedItemsPrice}}</a>
               </div>
             </div>
           </div>
           <div class="ui segment">
-            <div id="makeSale" class="ui bottom attached huge green button">
+            <div id="makeSale" class="ui bottom attached disabled huge green button">
               <i class="check icon"></i>
               Confirm Order
             </div>
@@ -71,17 +65,38 @@
       <div id="topbar" class="ui basic segment">
       </div>
       <div class="ui four column grid">
-        <div id="posCards" class="ui fluid stackable centered link cards">
-          {{#each menuItem in menuItems}}
-            <div class="card menu-card" data-itemid={{@index}}>
-              <div class="content">
-                <a class="header">{{menuItem.name}}</a>
-                <div class="meta">
-                  <a>${{menuItem.price}}</a>
+        <div id="posCards">
+          <div class="ui fluid stackable centered link cards">
+            {{#each menuItem in menuItems}}
+              <div class="card menu-card" data-itemid={{@index}}>
+                <div class="content">
+                  <a class="header">{{menuItem.name}}</a>
+                  <div class="meta">
+                    <a>${{menuItem.price}}</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          {{/each}}
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="makeSaleModal" class="ui small modal">
+      <div class="ui center aligned header">
+        Confirm Sale
+      </div>
+      <div class="actions">
+        <div class="ui center aligned basic segment content">
+          <div class="ui red deny left labeled huge icon button">
+            <i class="remove icon"></i>
+            No
+          </div>
+          <div class="ui positive right labeled huge icon button">
+            Yes
+            <i class="checkmark icon"></i>
+          </div>
         </div>
       </div>
     </div>

@@ -68,6 +68,29 @@ Template.vendorPOS.events({
     LocalSelectedItems.insert(
       instance.menuObj.items[event.currentTarget.getAttribute('data-itemid')]);
   },
+  'click #makeSale': function(event, instance) {
+    event.preventDefault();
+    $('#makeSaleModal').modal({
+        onDeny    : function(){
+        },
+        onApprove : function() {
+          Meteor.call('vendor.makeOrder',
+            {
+              menuId: instance.menuObj._id,
+              vendorId: Meteor.userId(),
+              items: LocalSelectedItems.find().fetch()
+            },
+            (err, res) => {
+              console.log(res);
+              // TODO(waihon) return some kind of 'sale successful' notif
+              LocalSelectedItems.remove({});
+            }
+          );
+        }
+      })
+      .modal('show')
+    ;
+  }
 });
 
 Template.vendorPOS.helpers({
@@ -83,6 +106,21 @@ Template.vendorPOS.helpers({
 
   'selectedItems'() {
     return LocalSelectedItems.find().fetch();
+  },
+
+  'selectedItemsPrice'() {
+    var items = LocalSelectedItems.find().fetch();
+
+    if (items && items.length > 0) {
+      $('#makeSale').removeClass('disabled');
+      return '$' + items.map( el => el.price )
+        .reduce(function add(a, b) {
+          return a + b;
+        }).toFixed(2);
+    } else {
+      $('#makeSale').addClass('disabled');
+      return '$0.00';
+    }
   }
 });
 
@@ -91,7 +129,6 @@ function magicallyCreateFilledMenuThen(thenFunction) {
     var userId = Meteor.userId();
     var menu = Menus.findOne({ vendorId: userId });
     Meteor.call('vendor.addMenuItem', {
-      itemId: "miloid",
       menuId: menu._id,
       vendorId: userId,
       category: "Drinks",
@@ -101,7 +138,6 @@ function magicallyCreateFilledMenuThen(thenFunction) {
       imageSource: "http://i3.mirror.co.uk/incoming/article6485860.ece/ALTERNATES/s615b/Coffee.jpg"
     }, (err, res) => {
       Meteor.call('vendor.addMenuItem', {
-        itemId: "coffeeid",
         menuId: menu._id,
         vendorId: userId,
         category: "Drinks",
@@ -111,7 +147,6 @@ function magicallyCreateFilledMenuThen(thenFunction) {
         imageSource: "http://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Coffee-PNG/Coffee_Cup_with_Sugar_Cubes.png?m=1399672800"
       }, (err, res) => {
         Meteor.call('vendor.addMenuItem', {
-          itemId: "milkteaid",
           menuId: menu._id,
           vendorId: userId,
           category: "Drinks",
@@ -121,7 +156,6 @@ function magicallyCreateFilledMenuThen(thenFunction) {
           imageSource: "https://static.menutabapp.com/img/original/2015/01/20/21222d4408377e8a6c1a9871f7050d75.jpeg"
         }, (err, res) => {
           Meteor.call('vendor.addMenuItem', {
-            itemId: "bandungid",
             menuId: menu._id,
             vendorId: userId,
             category: "Drinks",

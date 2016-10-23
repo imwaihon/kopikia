@@ -11,6 +11,7 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
+  // TODO(waihon): disallow creating more menus if already 1 exist.
   'vendor.createMenu'({ name }) {
     const menuState = {
       vendorId: this.userId,
@@ -23,10 +24,9 @@ Meteor.methods({
     return { success: true };
   },
 
-  // TODO(waihon): make it such that itemId is auto generated, not user provided.
-  'vendor.addMenuItem'({ itemId, menuId, category, name, description, price, imageSource }) {
+  'vendor.addMenuItem'({ menuId, category, name, description, price, imageSource }) {
     const menuItemState = {
-      itemId: itemId,
+      itemId: new Meteor.Collection.ObjectID(),
       vendorId: this.userId,
       menuId: menuId,
       category: category,
@@ -76,7 +76,11 @@ Meteor.methods({
   },
 
   // TODO(waihon): Eventually do some caluculations server-sided.
-  'vendor.makeOrder'({ menuId, vendorId, userId, items, totalPrice }) {
+  'vendor.makeOrder'({ menuId, vendorId, userId, items }) {
+    var totalPrice = 0;
+    for (var i=0; i<items.length; i++) {
+      totalPrice += items[i].price;
+    }
     const orderState = {
       menuId: menuId,
       vendorId: vendorId,
@@ -89,6 +93,8 @@ Meteor.methods({
     };
 
     Orders.insert(orderState);
+
+    return orderState;
   },
 
   'customer.makeOrder'({ menuId, vendorId, userId, items, totalPrice }) {
