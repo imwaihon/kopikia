@@ -7,6 +7,11 @@
         </div>
       </div>
         <div class="ui fluid stackable centered link cards">
+          <div id="addMenuItem" class="card green menu-add-card">
+            <div class="content">
+              <a class="ui green header"><i class="add large icon"></i> Add Menu Item</a>
+            </div>
+          </div>
           {{#each menuItem in menuItems}}
             <div class="card menu-card">
               <!-- <div class="image menu-image">
@@ -22,11 +27,67 @@
           {{/each}}
         </div>
     </div>
+
+    <!-- Modals -->
+    <div id="addMenuItemModal" class="ui modal">
+      <div class="ui center aligned header">
+        Add Menu Item
+      </div>
+      <div class="content">
+        <div id="addMenuItemForm" class="ui form">
+          <div class="field">
+            <label>Item Name</label>
+            <input type="text" name="item-name" placeholder="Name">
+          </div>
+          <div class="field">
+            <label>Category</label>
+            <input type="text" name="item-category" placeholder="Category">
+          </div>
+          <div class="field">
+            <label>Price</label>
+            <input type="text" name="item-price" placeholder="Price">
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea name="item-description" rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui center aligned basic segment content">
+          <div class="ui grey deny left labeled huge icon button">
+            <i class="remove icon"></i>
+            Cancel
+          </div>
+          <div class="ui positive right labeled huge icon button">
+            Add Menu Item
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <template name="vendorPOS">
-    <div class="twelve wide column">
-      <div class="ui right attached rail">
+    <div class="eleven wide column">
+      <div id="topbar" class="ui basic segment">
+      </div>
+      <div class="ui four column grid">
+        <div class="ui fluid stackable centered link cards">
+          {{#each menuItem in menuItems}}
+            <div class="card menu-card" data-itemid={{@index}}>
+              <div class="content">
+                <a class="header">{{menuItem.name}}</a>
+                <div class="meta">
+                  <a>${{menuItem.price}}</a>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="ui wide right visible sidebar">
         <div class="ui sticky basic segments">
           <div class="ui basic segment">
           </div>
@@ -59,24 +120,6 @@
               <i class="check icon"></i>
               Confirm Order
             </div>
-          </div>
-        </div>
-      </div>
-      <div id="topbar" class="ui basic segment">
-      </div>
-      <div class="ui four column grid">
-        <div id="posCards">
-          <div class="ui fluid stackable centered link cards">
-            {{#each menuItem in menuItems}}
-              <div class="card menu-card" data-itemid={{@index}}>
-                <div class="content">
-                  <a class="header">{{menuItem.name}}</a>
-                  <div class="meta">
-                    <a>${{menuItem.price}}</a>
-                  </div>
-                </div>
-              </div>
-            {{/each}}
           </div>
         </div>
       </div>
