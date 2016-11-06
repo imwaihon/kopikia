@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Vendors, Orders, Menus } from '/lib/collections.js'
+import { Vendors, Orders, Menus, Customers } from '/lib/collections.js'
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -172,6 +172,35 @@ Meteor.methods({
       }
 
       total = total + result[menuId];
+    }
+
+    return result;
+  },
+
+  'vendor.analytics.customerProfile'({ start, end, indicator }) {
+    // this function is to extract the customers' demographic data
+    // such as the revenue the customers contributed, time of visits
+    temp_result = {};
+    if (start == null || end == null) {
+      query = Customers.find({}).fetch();
+    } else {
+      query = Customers.find({'firstVisitDate' : { $gte : start, $lte : end }}).fetch();
+    }
+
+    if ( indicator == 'revenue' ){
+      result = {};
+      var item;
+      for (item in query) {
+        result[item['userId']] = item['numRevenue'];
+      }
+    } else if (indicator == 'visits'){
+      result = {};
+      var item;
+      for (item in query) {
+        result[item['userId']] = item['numVisits'];
+      }
+    } else {
+      result = {};
     }
 
     return result;
