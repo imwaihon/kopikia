@@ -38,9 +38,10 @@ Template.sidebar.events({
 });
 
 Template.vendorDashboard.helpers({
-  'createChart1'() {
+  'createSalesChart'() {
     // Gather data:
     // Use Meteor.defer() to craete chart after DOM is ready:
+    // default last 12 hours' servings for all dishes of the vendor
     Meteor.defer(function() {
       // TODO(waihon): Make data actually calculated from our stored order data.
       var categories = [
@@ -67,7 +68,7 @@ Template.vendorDashboard.helpers({
       // Create standard Highcharts chart with options:
       var chart1 = Highcharts.chart('chart1', {
         chart: {
-          type: 'line'
+          type: 'bar'
         },
         title: {
           text: 'Servings Sold by Hour'

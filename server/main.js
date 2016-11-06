@@ -159,7 +159,7 @@ Meteor.methods({
     temp_result = {};
     var menuId;
     for (menuId in menu) {
-      temp_result[menuId] = Orders.find({'menuId' : menuId, 'orderTime' : {$gte:start, $lte:end}}, {'orderNum':1).fetch();
+      temp_result[menuId] = Orders.find({'menuId' : menuId, 'orderTime' : {$gte:start, $lte:end}}, {'orderNum':1}).fetch();
     }
 
     result = {};
@@ -204,6 +204,54 @@ Meteor.methods({
     }
 
     return result;
+  },
+
+  'vendor.analytics.hot_stats'({ vendorId, stat_type }){
+    // this funciton will return the revenue made so far in this working day
+    var date = new Date();
+    var dd = date.getDate();
+    var mm = date.getMonth();
+    var year = date.getFullYear();
+    var start = new Date(year, mm, dd);
+
+    today_orders = Orders.find({'vendorId' : vendorId, 'orderTime' : {$gte:moment(start)}}).fetch();
+
+    if ( stat_type == 1 ){
+      // total revenue
+      var total_revenue = 0;
+      var order;
+      for ( order in today_orders ){
+        total_revenue = total_revenue + order['totalPrice'];
+      }
+      return total_revenue;
+    } elif ( stat_type == 2 ){
+      // best dish
+      var dist = {};
+      var order;
+      for ( order in today_orders ){
+        var items = order['items'];
+        for (i=0; i<items.length; i++){
+          if (item['name'] in dist){
+            dist[item['name']] += 1;
+          } else {
+            dist[item['name']] = 1;
+          }
+        }
+      }
+      var max_order = 0;
+      var max_order_dish;
+      for (var key in dist){
+        if (dist[key] > max_order){
+          max_order = dist[key];
+          max_order_dish = key;
+        }
+      }
+      
+      return max_order_dish;
+    } else {
+      // number of customers
+      return orders.length;
+    }
   }
 });
 
