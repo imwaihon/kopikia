@@ -10,6 +10,16 @@ import './menus.html';
 // Create a local mongo collection for reactiveness.
 var LocalSelectedItems = new Mongo.Collection(null);
 
+Template.vendorMenu.onCreated(function () {
+  var self = this;
+
+  this.autorun(function () {
+    self.menuObj = Menus.findOne({
+      vendorId: Meteor.userId()
+    });
+  });
+});
+
 Template.vendorMenu.events({
   'click #createMenu': function(event) {
     event.preventDefault();
@@ -17,6 +27,30 @@ Template.vendorMenu.events({
       FlowRouter.go('/menu');
     });
   },
+  'click #addMenuItem': function(event, instance) {
+    event.preventDefault();
+    $('#addMenuItemModal').modal({
+        onDeny    : function(){
+        },
+        onApprove : function() {
+          Meteor.call('vendor.addMenuItem',
+            {
+              menuId: instance.menuObj._id,
+              vendorId: Meteor.userId(),
+              category: $('#addMenuItemForm').form('get value', 'item-category'),
+              name: $('#addMenuItemForm').form('get value', 'item-name'),
+              description: $('#addMenuItemForm').form('get value', 'item-description'),
+              price: $('#addMenuItemForm').form('get value', 'item-price'),
+            },
+            (err, res) => {
+              console.log(res);
+            }
+          );
+        }
+      })
+      .modal('show')
+    ;
+  }
 });
 
 Template.vendorMenu.helpers({
@@ -47,19 +81,9 @@ Template.vendorPOS.onRendered(function() {
     selectedItemsHeight = window.innerHeight;
   }
 
-  $('#posCards')
-  .css('height', selectedItemsHeight);
-
   $('#selectedItemsList')
-  .css('height', selectedItemsHeight * 0.75)
+  .css('height', selectedItemsHeight * 0.8)
   .css('overflow', 'scroll');
-
-  // Allows for the right bar to 'stick' and not scroll with the rest of the
-  // cards.
-  $('.ui.sticky')
-  .sticky({
-    context: '#posCards'
-  });
 });
 
 Template.vendorPOS.events({
@@ -113,7 +137,8 @@ Template.vendorPOS.helpers({
 
     if (items && items.length > 0) {
       $('#makeSale').removeClass('disabled');
-      return '$' + items.map( el => el.price )
+      // TODO(waihon): use a actual money package, not float/number.
+      return '$' + items.map( el => Number(el.price) )
         .reduce(function add(a, b) {
           return a + b;
         }).toFixed(2);
