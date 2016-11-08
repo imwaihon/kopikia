@@ -1,4 +1,6 @@
 <template name="vendorMenu">
+    <div class="one wide column">
+    </div>
     <div class="thirteen wide column">
       <div id="topbar" class="ui basic segment">
         <div id="createMenu" class="ui bottom attached green button">
@@ -8,15 +10,17 @@
       </div>
         <div class="ui fluid stackable centered link cards">
           <div id="addMenuItem" class="card green menu-add-card">
+            <div class="image menu-image">
+            </div>
             <div class="content">
               <a class="ui green header"><i class="add large icon"></i> Add Menu Item</a>
             </div>
           </div>
           {{#each menuItem in menuItems}}
             <div class="card menu-card">
-              <!-- <div class="image menu-image">
+              <div class="image menu-image">
                 <img class="ui small image" src={{menuItem.imageSource}}>
-              </div> -->
+              </div>
               <div class="content">
                 <a class="header">{{menuItem.name}}</a>
                 <div class="meta">
@@ -69,78 +73,91 @@
 </template>
 
 <template name="vendorPOS">
-    <div class="eleven wide column">
-      <div id="topbar" class="ui basic segment">
-      </div>
-      <div class="ui four column grid">
-        <div class="ui fluid stackable centered link cards">
-          {{#each menuItem in menuItems}}
-            <div class="card menu-card" data-itemid={{@index}}>
-              <div class="content">
-                <a class="header">{{menuItem.name}}</a>
-                <div class="meta">
-                  <a>${{menuItem.price}}</a>
-                </div>
+  <div class="eleven wide column">
+    <div id="topbar" class="ui basic segment">
+    </div>
+    <div class="ui four column grid">
+      <div class="ui fluid stackable centered link cards">
+        {{#each menuItem in menuItems}}
+          <div class="card menu-card" data-itemid={{@index}}>
+            <div class="image menu-image">
+              <img src={{menuItem.imageSource}}>
+            </div>
+            <div class="content">
+              <a class="header">{{menuItem.name}}</a>
+              <div class="meta">
+                <a>${{menuItem.price}}</a>
               </div>
             </div>
-          {{/each}}
-        </div>
-      </div>
-
-      <div class="ui wide right visible sidebar">
-        <div class="ui sticky basic segments">
-          <div class="ui basic segment">
           </div>
-          <div id="selectedItemsList" class="ui segment">
-            <div class="ui items">
-              {{#each selectedItem in selectedItems}}
-                <div class="item">
-                  <div class="content">
-                    <a class="header">{{selectedItem.name}}</a>
-                    <div class="meta">
-                      <span>{{selectedItem.description}}</span>
-                    </div>
-                    <div class="description">
-                      <p>{{selectedItem.price}}</p>
-                    </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="ui wide right visible sidebar">
+      <div class="ui sticky basic segments">
+        <div class="ui basic segment">
+        </div>
+        <div id="selectedItemsList" class="ui segment">
+          <div class="ui items">
+            {{#each selectedItem in selectedItems}}
+              <div class="item">
+                <div class="content">
+                  <a class="header">{{selectedItem.name}}</a>
+                  <div class="meta">
+                    <span>{{selectedItem.description}}</span>
+                  </div>
+                  <div class="description">
+                    <p>{{selectedItem.price}}</p>
                   </div>
                 </div>
-              {{/each}}
-            </div>
-          </div>
-          <div class="ui segment">
-            <div class="item">
-              <div class="content">
-                <a class="ui header">Total Price: {{selectedItemsPrice}}</a>
               </div>
+            {{/each}}
+          </div>
+        </div>
+        <div class="ui segment">
+          <div class="item">
+            <div class="content">
+              <a class="ui header">Total Price: {{selectedItemsPrice}}</a>
             </div>
           </div>
-          <div class="ui segment">
-            <div id="makeSale" class="ui bottom attached disabled huge green button">
-              <i class="check icon"></i>
-              Confirm Order
-            </div>
+        </div>
+        <div class="ui segment">
+          <div id="makeSale" class="ui bottom attached disabled huge green button">
+            <i class="check icon"></i>
+            Confirm Order
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Modals -->
-    <div id="makeSaleModal" class="ui small modal">
-      <div class="ui center aligned header">
-        Confirm Sale
-      </div>
-      <div class="actions">
-        <div class="ui center aligned basic segment content">
-          <div class="ui red deny left labeled huge icon button">
-            <i class="remove icon"></i>
-            No
-          </div>
-          <div class="ui positive right labeled huge icon button">
-            Yes
-            <i class="checkmark icon"></i>
-          </div>
+  <!-- Modals -->
+  <div id="makeSaleModal" class="ui small modal">
+    <div class="ui center aligned header">
+      Confirm Sale
+    </div>
+    <div class="actions">
+      <div class="ui center aligned basic segment content">
+        <div class="ui red deny left labeled huge icon button">
+          <i class="remove icon"></i>
+          No
+        </div>
+        <div class="ui positive right labeled huge icon button">
+          Yes
+          <i class="checkmark icon"></i>
         </div>
       </div>
     </div>
+  </div>
+</template>
+
+<template name="vendorOrders">
+  <div class="one wide column">
+  </div>
+  <div class="thirteen wide column">
+    <div id="topbar" class="ui basic segment">
+    </div>
+    lol
+  </div>
 </template>

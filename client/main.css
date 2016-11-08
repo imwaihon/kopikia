@@ -3,8 +3,8 @@
 	box-shadow: 3px 3px 2px #888888;
 }
 
-.menu-card .menu-image {
-  height: 250px;
+.menu-card .menu-image .menu-image-inner{
+	height: 250px;
 }
 
 #topbar {

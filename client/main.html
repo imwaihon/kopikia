@@ -40,9 +40,13 @@
         <i class="users icon"></i>
         Orders
       </a>
-      <a id="dashboard" class="item">
+      <a id="statusDashboard" class="item">
         <i class="dashboard icon"></i>
-        Dashboard
+        Status
+      </a>
+      <a id="reportDashboard" class="item">
+        <i class="line chart icon"></i>
+        Report
       </a>
       <a id="settings" class="item">
         <i class="setting icon"></i>
@@ -53,73 +57,5 @@
         Logout
       </a>
     </div>
-  </div>
-</template>
-
-<template name="vendorDashboard">
-    <div class="thirteen wide column">
-      <div class="ui grid">
-        <div class="row">
-          <div class="column">
-            <div id="chart1">{{createChart1}}</div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="eight wide column">
-            <div id="chart2">{{createChart2}}</div>
-          </div>
-          <div class="eight wide column">
-            <div id="chart3">{{createChart3}}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-</template>
-
-<template name="customerCheckout">
-  <div class="ui center aligned container segment">
-    <div class="ui items">
-      <div class="item">
-        <div class="content">
-          <div class="header">
-            Lemon Tea
-          </div>
-          <div class="meta">
-            <span class="quantity"> Qty: 2</span>
-            <span> | </span>
-            <span class="price"> Price: $4.00 </span>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="content">
-          <div class="header">
-            Milo
-          </div>
-          <div class="meta">
-            <span class="quantity"> Qty: 1</span>
-            <span> | </span>
-            <span class="price"> Price: $1.50 </span>
-          </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="content">
-          <div class="header">
-            Eggs and Toast
-          </div>
-          <div class="meta">
-            <span class="quantity"> Qty: 2</span>
-            <span> | </span>
-            <span class="price"> Price: $5.00 </span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <button class="ui teal labeled large icon button">
-      <i class="cart icon"></i>
-      Checkout
-    </button>
   </div>
 </template>
