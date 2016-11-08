@@ -7,7 +7,6 @@ import { Vendors, Orders, Menus } from '/lib/collections.js'
 
 import './main.html';
 
-import { Orders } from '../lib/collections.js';
 
 // Highcharts API
 var Highcharts = require('highcharts/highstock');

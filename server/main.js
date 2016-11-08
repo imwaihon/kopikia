@@ -224,7 +224,7 @@ Meteor.methods({
         total_revenue = total_revenue + order['totalPrice'];
       }
       return total_revenue;
-    } elif ( stat_type == 2 ){
+    } else if ( stat_type == 2 ){
       // best dish
       var dist = {};
       var order;
