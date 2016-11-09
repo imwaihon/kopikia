@@ -8,7 +8,7 @@
           Create New Menu
         </div>
       </div>
-        <div class="ui fluid stackable centered link cards">
+        <div class="ui stackable centered link cards">
           <div id="addMenuItem" class="card green menu-add-card">
             <div class="image menu-image">
             </div>
@@ -17,9 +17,9 @@
             </div>
           </div>
           {{#each menuItem in menuItems}}
-            <div class="card menu-card">
+            <div class="card small menu-card">
               <div class="image menu-image">
-                <img class="ui small image" src={{menuItem.imageSource}}>
+                <img class="ui tiny image" src={{menuItem.imageSource}}>
               </div>
               <div class="content">
                 <a class="header">{{menuItem.name}}</a>
@@ -94,7 +94,7 @@
       </div>
     </div>
 
-    <div class="ui wide right visible sidebar">
+    <div class="ui right visible sidebar">
       <div class="ui sticky basic segments">
         <div class="ui basic segment">
         </div>
@@ -123,7 +123,7 @@
           </div>
         </div>
         <div class="ui segment">
-          <div id="makeSale" class="ui bottom attached disabled huge green button">
+          <div id="makeSale" class="ui bottom attached disabled large green button">
             <i class="check icon"></i>
             Confirm Order
           </div>

@@ -1,0 +1,10 @@
+.menu-card {
+	height: 275px !important;
+	width: 200px !important;
+}
+
+.menu-add-card {
+  height: 275px !important;
+  width: 200px !important;
+	box-shadow: 3px 3px 2px #888888;
+}
