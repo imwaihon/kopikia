@@ -209,7 +209,7 @@ Meteor.methods({
   'vendor.analytics.today_revenue'({ vendorId }){
     // this funciton will return the revenue made so far in this working day
     var date = new Date();
-    date.setHours();
+    date.setHours(0,0,0,0);
     var start = date.getTime();
 
     today_orders = Orders.find({'vendorId' : vendorId, 'orderTime' : {$gte:start}}).fetch();
@@ -226,7 +226,7 @@ Meteor.methods({
   'vendor.analytics.today_customers'({ vendorId }){
     // number of customers today
     var date = new Date();
-    date.setHours();
+    date.setHours(0,0,0,0);
     var start = date.getTime();
 
     today_orders = Orders.find({'vendorId' : vendorId, 'orderTime' : {$gte:start}}).fetch();
@@ -237,7 +237,7 @@ Meteor.methods({
   'vendor.analytics.online_customers'({ vendorId }){
     // number of online customers today
     var date = new Date();
-    date.setHours();
+    date.setHours(0,0,0,0);
     var start = date.getTime();
 
     today_orders = Orders.find({'vendorId' : vendorId, 'orderTime' : {$gte:start}, 'isVendor':false}).fetch();
