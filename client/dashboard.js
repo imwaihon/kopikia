@@ -10,50 +10,63 @@ import './dashboard.html';
 var Highcharts = require('highcharts/highstock');
 
 Template.vendorStatusDashboard.helpers({
+  // Real time chart for hour-by-hour sales.
   'createStatusChart1'() {
     // Gather data:
     // Use Meteor.defer() to craete chart after DOM is ready:
     Meteor.defer(function() {
-      hours = ['9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm']
-      volume = [1, 3, 4, 37, 42,21,13,19,9,0,0,0,0,0]
-      Highcharts.chart('statusChart1', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Today\'s Realtime Sales Volume'
-        },
-        xAxis: {
-            categories:hours,
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Sales volume (S$)'
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>S${point.y:.2f}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: "Sales",
-            data: volume
-        }]
+      Meteor.call('vendor.analytics.getSalesToday', {vendorId: Meteor.userId()}, function(error, res) {
+        var hours = ['12am', '1am', '2am', '3am', '4am', '5am', '6am', '7am', '8am', '9am', '10am', '11am', '12pm',
+         '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', '9pm', '10pm', '11pm'];
+        var volume = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        if (res) {
+          var data = res.result;
+          for (var i=0; i<data.length; i++) {
+            index = (data[i]._id+8)%24;
+            volume[index] = data[i].sum_price;
+          }
+          console.log(data, hours, volume);
+        }
+
+        Highcharts.chart('statusChart1', {
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'Today\'s Realtime Sales Volume'
+          },
+          xAxis: {
+              categories:hours,
+              crosshair: true
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'Sales volume (S$)'
+              }
+          },
+          legend: {
+              enabled: false
+          },
+          tooltip: {
+              headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+              pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                  '<td style="padding:0"><b>S${point.y:.2f}</b></td></tr>',
+              footerFormat: '</table>',
+              shared: true,
+              useHTML: true
+          },
+          plotOptions: {
+              column: {
+                  pointPadding: 0.2,
+                  borderWidth: 0
+              }
+          },
+          series: [{
+              name: "Sales",
+              data: volume
+          }]
+        });
       });
     });
   }

@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Vendors, Orders, Menus, Customers } from '/lib/collections.js'
+import moment from 'moment';
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -8,6 +9,8 @@ Meteor.startup(() => {
   Vendors.remove({});
   Orders.remove({});
   Menus.remove({});
+
+
 });
 
 Meteor.methods({
@@ -85,7 +88,7 @@ Meteor.methods({
       menuId: menuId,
       vendorId: vendorId,
       userId: this.userId,
-      orderTime: Date.now(),
+      orderTime: moment().toDate(),
       items: items,
       isVendor: true,
       totalPrice: totalPrice,
@@ -102,7 +105,7 @@ Meteor.methods({
       menuId: menuId,
       vendorId: vendorId,
       userId: this.userId,
-      orderTime: Date.now(),
+      orderTime: moment().toDate(),
       items: items,
       isVendor: false,
       totalPrice: totalPrice,
@@ -114,6 +117,21 @@ Meteor.methods({
 
   'customer.checkout'() {
 
+  },
+
+  'vendor.analytics.getSalesToday'({ vendorId }) {
+    var start = moment().utcOffset('+08:00').startOf('day').toDate(); // set to 12:00 am today SGT
+    var end = moment().utcOffset('+08:00').endOf('day').toDate(); // set to 23:59 pm today SGT
+
+    var menuId = Menus.findOne({ vendorId: vendorId})._id;
+
+    var aggregate = Orders.aggregate([
+      {$match:{ 'menuId': menuId, 'orderTime': {$gte:start, $lt:end} }},
+      {$project: { "orderTime":1, "totalPrice": 1, }},
+      {$group:{ _id: { $hour : "$orderTime" }, sum_price: {$sum: "$totalPrice"}, count: {$sum: 1} }}
+    ]);
+
+    return {result: aggregate};
   },
 
   'vendor.analytics.getSaleTrend'({ start, end, menu, scale, unit }) {
@@ -246,7 +264,7 @@ Meteor.methods({
           max_order_dish = key;
         }
       }
-      
+
       return max_order_dish;
     } else {
       // number of customers
@@ -254,7 +272,3 @@ Meteor.methods({
     }
   }
 });
-
-
-
-

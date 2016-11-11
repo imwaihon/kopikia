@@ -124,6 +124,7 @@ Template.vendorPOS.helpers({
     });
 
     if (menu) {
+      console.log(menu);
       return menu.items;
     }
   },
