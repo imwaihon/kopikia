@@ -157,39 +157,69 @@ function magicallyCreateFilledMenuThen(thenFunction) {
       menuId: menu._id,
       vendorId: userId,
       category: "Drinks",
-      name: "Milo",
-      description: "milo",
-      price: 1.50,
-      imageSource: "http://i3.mirror.co.uk/incoming/article6485860.ece/ALTERNATES/s615b/Coffee.jpg"
+      name: "Ice Milo",
+      description: "with cream and ice blended",
+      price: 1.80,
+      imageSource: "http://g2.onsono.com/1/250/cal/1500/1500/ice-blended-chocolate.jpg"
     }, (err, res) => {
       Meteor.call('vendor.addMenuItem', {
         menuId: menu._id,
         vendorId: userId,
         category: "Drinks",
-        name: "Coffee",
+        name: "Hot Coffee",
         description: "coffee",
-        price: 1.20,
-        imageSource: "http://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Coffee-PNG/Coffee_Cup_with_Sugar_Cubes.png?m=1399672800"
+        price: 1.30,
+        imageSource: "http://www.phuketcoffeeshop.com/wp-content/uploads/2011/06/2_macchiato.jpg"
       }, (err, res) => {
         Meteor.call('vendor.addMenuItem', {
           menuId: menu._id,
           vendorId: userId,
           category: "Drinks",
-          name: "Milk Tea",
-          description: "milk tea",
+          name: "Ice Lemon Tea",
+          description: "Ice Lemon Tea",
           price: 1.30,
-          imageSource: "https://static.menutabapp.com/img/original/2015/01/20/21222d4408377e8a6c1a9871f7050d75.jpeg"
+          imageSource: "https://3.imimg.com/data3/TU/AV/MY-4000560/ice-tea-250x250.jpg"
         }, (err, res) => {
           Meteor.call('vendor.addMenuItem', {
             menuId: menu._id,
             vendorId: userId,
-            category: "Drinks",
-            name: "Bandung",
-            description: "bandung",
-            price: 1.70,
-            imageSource: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Bandung_Drinks.jpg"
-          }, (err, res) => {
-            thenFunction();
+            category: "Food",
+            name: "Garlic Toast",
+            description: "2 pieces",
+            price: 1.80,
+            imageSource: "http://ukcdn.ar-cdn.com/recipes/originalxl/e0fcd2d0-1105-46f5-b65c-f7d118ee8969.jpg"
+          },(err, res) => {
+            Meteor.call('vendor.addMenuItem', {
+              menuId: menu._id,
+              vendorId: userId,
+              category: "Food",
+              name: "Chicken Rice",
+              description: "Tasty white chicken rice",
+              price: 2.50,
+              imageSource: "https://s3-media2.fl.yelpcdn.com/bphoto/QjeNA_VKPZ2ZKDtAys5NeA/ls.jpg"
+            },(err, res) => {
+              Meteor.call('vendor.addMenuItem', {
+                menuId: menu._id,
+                vendorId: userId,
+                category: "Food",
+                name: "Roti Prata",
+                description: "3 pieces of Plain Roti prata with curry source",
+                price: 3.00,
+                imageSource: "https://s3-media1.fl.yelpcdn.com/bphoto/4HQou29lLMxHe3RHtl9K3w/ls.jpg"
+              },(err, res) => {
+                Meteor.call('vendor.addMenuItem', {
+                  menuId: menu._id,
+                  vendorId: userId,
+                  category: "Food",
+                  name: "Tom Yum Noodle soup",
+                  description: "with seafood",
+                  price: 5.00,
+                  imageSource: "http://6998ec567c1ba0e4d1df-35f536080503e7803921781ced385773.r35.cf2.rackcdn.com/styles/250square/rcf/9599c3fdda52393c7501e6b9f6838e3b.jpg?itok=X0mBlnEW"
+                }, (err, res) => {
+                  thenFunction();
+                });
+              });
+            });
           });
         });
       });

@@ -1,0 +1,66 @@
+<template name="vendorStatusDashboard">
+    <div class="one wide column">
+    </div>
+    <div class="thirteen wide column">
+      <div class="ui grid">
+        <div id="topbar" class="ui basic segment">
+        </div>
+        <div class="row">
+          <div class="ui inverted brown segment container">
+            <div class="ui three large inverted statistics">
+              <div class="statistic">
+                <div class="value">
+                  $780
+                </div>
+                <div class="label">
+                  Total Revenue Today
+                </div>
+              </div>
+              <div class="statistic">
+                <div class="value">
+                  161
+                </div>
+                <div class="label">
+                  Customers Served Today
+                </div>
+              </div>
+              <div class="statistic">
+                <div class="value">
+                  55
+                </div>
+                <div class="label">
+                  Online Orders
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="sixteen wide column">
+            <div id="statusChart1">{{createStatusChart1}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
+
+<template name="vendorReportDashboard">
+    <div class="one wide column">
+    </div>
+    <div class="thirteen wide column">
+      <div class="ui grid">
+        <div id="topbar" class="ui basic segment">
+        </div>
+        <div class="row">
+          <div class="column">
+            <div id="forecastChart1">{{createForecastChart1}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column">
+            <div id="forecastChart2">{{createForecastChart2}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>

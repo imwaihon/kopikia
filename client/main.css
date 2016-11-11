@@ -1,12 +1,4 @@
 /* CSS declarations go here */
-.menu-add-card {
-	box-shadow: 3px 3px 2px #888888;
-}
-
-.menu-card .menu-image {
-  height: 250px;
-}
-
 #topbar {
   margin-bottom: 24px;
 }
