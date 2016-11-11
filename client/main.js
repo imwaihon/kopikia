@@ -2,6 +2,7 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Meteor } from 'meteor/meteor';
 
+
 // TODO(waihon): Eventually switch this over to server side handling.
 import { Vendors, Orders, Menus } from '/lib/collections.js'
 
