@@ -1,10 +1,16 @@
 .menu-card {
-	height: 275px !important;
-	width: 200px !important;
+	height: 250px !important;
+	width: 175px !important;
 }
 
 .menu-add-card {
-  height: 275px !important;
-  width: 200px !important;
+  height: 250px !important;
+  width: 175px !important;
 	box-shadow: 3px 3px 2px #888888;
+}
+
+#posSidebar {
+	z-index: 1000;
+	overflow-y: scroll; /* has to be scroll, not auto */
+	-webkit-overflow-scrolling: touch;
 }

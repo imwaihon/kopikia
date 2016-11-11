@@ -1,7 +1,5 @@
 <template name="vendorMenu">
-    <div class="one wide column">
-    </div>
-    <div class="thirteen wide column">
+    <div class="fourteen wide column">
       <div id="topbar" class="ui basic segment">
         <div id="createMenu" class="ui bottom attached green button">
           <i class="add icon"></i>
@@ -12,12 +10,12 @@
           <div id="addMenuItem" class="card green menu-add-card">
             <div class="image menu-image">
             </div>
-            <div class="content">
-              <a class="ui green header"><i class="add large icon"></i> Add Menu Item</a>
+            <div class="middle aligned content">
+              <a class="ui green header"><i class="add large icon"></i>Add Item</a>
             </div>
           </div>
           {{#each menuItem in menuItems}}
-            <div class="card small menu-card">
+            <div class="card small menu-card editMenuItem" data-itemid="{{menuItem.itemId._str}}" data-itemName="{{menuItem.name}}" data-itemPrice="{{menuItem.price}}" data-itemDescription="{{menuItem.description}}">
               <div class="image menu-image">
                 <img class="ui tiny image" src={{menuItem.imageSource}}>
               </div>
@@ -66,6 +64,44 @@
         </div>
       </div>
     </div>
+
+    <div id="editMenuItemModal" class="ui modal">
+      <div class="ui center aligned header">
+        Edit Menu Item
+      </div>
+      <div class="content">
+        <div id="editMenuItemForm" class="ui form">
+          <div class="field">
+            <label>Item Name</label>
+            <input type="text" name="item-name" placeholder="Name">
+          </div>
+          <div class="field">
+            <label>Price</label>
+            <input type="text" name="item-price" placeholder="Price">
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <textarea name="item-description" rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui center aligned basic segment content">
+          <div class="ui grey deny left labeled huge icon button">
+            <i class="remove icon"></i>
+            Cancel
+          </div>
+          <div class="ui approve red labeled huge icon button deleteMenuItem">
+            Delete Menu Item
+            <i class="delete icon"></i>
+          </div>
+          <div class="ui positive right labeled huge icon button">
+            Edit Menu Item
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <template name="vendorPOS">
@@ -75,7 +111,7 @@
     <div class="ui four column grid">
       <div class="ui fluid stackable centered link cards">
         {{#each menuItem in menuItems}}
-          <div class="card menu-card" data-itemid={{@index}}>
+          <div class="card menu-card" data-itemindex={{@index}} data-itemid={{menuItem.itemId._str}}>
             <div class="image menu-image">
               <img src={{menuItem.imageSource}}>
             </div>
@@ -89,22 +125,26 @@
         {{/each}}
       </div>
     </div>
+    <div class="four wide column">
+    </div>
 
-    <div class="ui right visible sidebar">
+    <div id="posSidebar" class="ui right visible sidebar">
       <div class="ui sticky basic segments">
         <div class="ui basic segment">
         </div>
         <div id="selectedItemsList" class="ui segment">
-          <div class="ui items">
+          <div class="ui divided items">
             {{#each selectedItem in selectedItems}}
               <div class="item">
-                <div class="content">
+                <div class="middle aligned content">
                   <a class="header">{{selectedItem.name}}</a>
-                  <div class="meta">
-                    <span>{{selectedItem.description}}</span>
-                  </div>
                   <div class="description">
-                    <p>{{selectedItem.price}}</p>
+                    <p><b>Price:</b> {{selectedItem.price}} <b>Qty:</b> {{selectedItem.quantity}}</p>
+                  </div>
+                  <div class="extra">
+                    <button class="ui right floated red icon button deleteItem" data-itemid={{selectedItem.itemId._str}}>
+                      <i class="large remove icon"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -119,7 +159,7 @@
           </div>
         </div>
         <div class="ui segment">
-          <div id="makeSale" class="ui bottom attached disabled large green button">
+          <div id="makeSale" class="ui bottom attached disabled huge green button">
             <i class="check icon"></i>
             Confirm Order
           </div>

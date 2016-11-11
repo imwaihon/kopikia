@@ -36,7 +36,6 @@ Template.vendorMenu.events({
           Meteor.call('vendor.addMenuItem',
             {
               menuId: instance.menuObj._id,
-              vendorId: Meteor.userId(),
               name: $('#addMenuItemForm').form('get value', 'item-name'),
               description: $('#addMenuItemForm').form('get value', 'item-description'),
               price: $('#addMenuItemForm').form('get value', 'item-price'),
@@ -49,7 +48,46 @@ Template.vendorMenu.events({
       })
       .modal('show')
     ;
-  }
+  },
+  'click .editMenuItem': function(event, instance) {
+    event.preventDefault();
+    $('#editMenuItemForm').form('set value', 'item-name', event.currentTarget.getAttribute('data-itemName'));
+    $('#editMenuItemForm').form('set value', 'item-description', event.currentTarget.getAttribute('data-itemDescription'));
+    $('#editMenuItemForm').form('set value', 'item-price', event.currentTarget.getAttribute('data-itemPrice'));
+
+    $('#editMenuItemModal').modal({
+        onDeny    : function(){
+        },
+        onApprove : function(element) {
+          if (element.hasClass('deleteMenuItem')) {
+              Meteor.call('vendor.deleteMenuItem',
+                {
+                  itemId: new Meteor.Collection.ObjectID(event.currentTarget.getAttribute('data-itemid')),
+                  menuId: instance.menuObj._id,
+                },
+                (err, res) => {
+                  console.log(res);
+                }
+              );
+          } else {
+            Meteor.call('vendor.editMenuItem',
+              {
+                itemId: new Meteor.Collection.ObjectID(event.currentTarget.getAttribute('data-itemid')),
+                menuId: instance.menuObj._id,
+                name: $('#editMenuItemForm').form('get value', 'item-name'),
+                description: $('#editMenuItemForm').form('get value', 'item-description'),
+                price: $('#editMenuItemForm').form('get value', 'item-price'),
+              },
+              (err, res) => {
+                console.log(res);
+              }
+            );
+          }
+        }
+      })
+      .modal('show')
+    ;
+  },
 });
 
 Template.vendorMenu.helpers({
@@ -81,15 +119,29 @@ Template.vendorPOS.onRendered(function() {
   }
 
   $('#selectedItemsList')
-  .css('height', selectedItemsHeight * 0.8)
+  .css('height', selectedItemsHeight * 0.75)
   .css('overflow', 'scroll');
 });
 
 Template.vendorPOS.events({
   'click .menu-card': function(event, instance) {
     event.preventDefault();
-    LocalSelectedItems.insert(
-      instance.menuObj.items[event.currentTarget.getAttribute('data-itemid')]);
+
+    var found = LocalSelectedItems.findOne({ itemId: new Meteor.Collection.ObjectID(event.currentTarget.getAttribute('data-itemid')) });
+    if (found) {
+      LocalSelectedItems.update(
+        { itemId: new Meteor.Collection.ObjectID(event.currentTarget.getAttribute('data-itemid')) },
+        { $inc: { quantity: 1 } }
+      );
+    } else {
+      LocalSelectedItems.insert(
+        instance.menuObj.items[event.currentTarget.getAttribute('data-itemindex')]
+      );
+    }
+  },
+  'click .deleteItem': function(event, instance) {
+    event.preventDefault();
+    LocalSelectedItems.remove({ itemId: new Meteor.Collection.ObjectID(event.currentTarget.getAttribute('data-itemid')) });
   },
   'click #makeSale': function(event, instance) {
     event.preventDefault();
@@ -138,7 +190,7 @@ Template.vendorPOS.helpers({
     if (items && items.length > 0) {
       $('#makeSale').removeClass('disabled');
       // TODO(waihon): use a actual money package, not float/number.
-      return '$' + items.map( el => Number(el.price) )
+      return '$' + items.map( el => Number(el.price * el.quantity) )
         .reduce(function add(a, b) {
           return a + b;
         }).toFixed(2);

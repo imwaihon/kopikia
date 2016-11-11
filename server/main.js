@@ -35,6 +35,7 @@ Meteor.methods({
       name: name,
       description: description,
       price: price,
+      quantity: 1,
       imageSource: imageSource
     };
 
@@ -69,8 +70,24 @@ Meteor.methods({
         "items.itemId": itemId
       },
       {
-        $set: menuItemState
+        $set: {
+          "items.$.name": menuItemState.name,
+          "items.$.description": menuItemState.description,
+          "items.$.price": menuItemState.price,
+        }
       }
+    );
+
+    return { success: true };
+  },
+
+  'vendor.deleteMenuItem'({ itemId, menuId }) {
+    Menus.update(
+      {
+        _id: menuId,
+        vendorId: this.userId,
+      },
+      { $pull: { items: { itemId: itemId } } }
     );
 
     return { success: true };
@@ -80,9 +97,8 @@ Meteor.methods({
   'vendor.makeOrder'({ menuId, vendorId, userId, items }) {
     var totalPrice = 0;
     for (var i=0; i<items.length; i++) {
-      totalPrice += items[i].price
-      // TODO(waihon)
-      items[i].totalPrice = items[i].price;
+      totalPrice += items[i].price * items[i].quantity;
+      items[i].totalPrice = items[i].price * items[i].quantity;
     }
     const orderState = {
       menuId: menuId,
