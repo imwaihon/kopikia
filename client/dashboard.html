@@ -10,7 +10,7 @@
             <div class="ui three large inverted statistics">
               <div class="statistic">
                 <div class="value">
-                  $780
+                  ${{todayRevenueMetric}}
                 </div>
                 <div class="label">
                   Total Revenue Today
@@ -18,7 +18,7 @@
               </div>
               <div class="statistic">
                 <div class="value">
-                  161
+                  {{todayCustomersMetric}}
                 </div>
                 <div class="label">
                   Customers Served Today
@@ -26,7 +26,7 @@
               </div>
               <div class="statistic">
                 <div class="value">
-                  55
+                  {{todayOnlineCustomersMetric}}
                 </div>
                 <div class="label">
                   Online Orders
@@ -37,7 +37,12 @@
         </div>
         <div class="row">
           <div class="sixteen wide column">
-            <div id="statusChart1">{{createStatusChart1}}</div>
+            <h3 class="ui top attached inverted header">
+              Sales Overview Today
+            </h3>
+            <div class="ui attached segment container">
+              <div id="statusChart1">{{createStatusChart1}}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -53,12 +58,58 @@
         </div>
         <div class="row">
           <div class="column">
-            <div id="forecastChart1">{{createForecastChart1}}</div>
+            <h3 class="ui top attached inverted header">
+              Sales Overview Over Past 4 Weeks
+            </h3>
+            <div class="ui attached segment container">
+              <div id="reportChart1">{{createReportChart1}}</div>
+            </div>
           </div>
         </div>
         <div class="row">
-          <div class="column">
-            <div id="forecastChart2">{{createForecastChart2}}</div>
+          <div class="eight wide column">
+            <h3 class="ui top attached inverted header">
+              Sales In Your Area (S640313)
+            </h3>
+            <div class="ui attached segment container">
+              <div class="ui horizontal large statistics">
+                <div class="ui red statistic">
+                  <i class="red caret down icon"></i>
+                  <div class="value">
+                    1.1 %
+                  </div>
+                  <div class="label">
+                    from last week
+                  </div>
+                </div>
+                <div class="ui green large statistic">
+                  <i class="green caret up icon"></i>
+                  <div class="value">
+                    4.5 %
+                  </div>
+                  <div class="label">
+                    from 4 weeks ago
+                  </div>
+                </div>
+                <div class="ui green large statistic">
+                  <i class="green caret up icon"></i>
+                  <div class="value">
+                    8.5 %
+                  </div>
+                  <div class="label">
+                    from 8 weeks ago
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="eight wide column">
+            <h3 class="ui top attached inverted header">
+              Top Menu Item Sales For Past 4 Weeks
+            </h3>
+            <div class="ui attached segment container">
+              <div id="reportChart2">{{createReportChart2}}</div>
+            </div>
           </div>
         </div>
       </div>

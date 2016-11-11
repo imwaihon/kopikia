@@ -10,7 +10,7 @@ Meteor.startup(() => {
   Orders.remove({});
   Menus.remove({});
 
-
+  // Populate with Test Data and Account: test-dev@kopikia.com
 });
 
 Meteor.methods({
@@ -27,12 +27,11 @@ Meteor.methods({
     return { success: true };
   },
 
-  'vendor.addMenuItem'({ menuId, category, name, description, price, imageSource }) {
+  'vendor.addMenuItem'({ menuId, name, description, price, imageSource }) {
     const menuItemState = {
       itemId: new Meteor.Collection.ObjectID(),
       vendorId: this.userId,
       menuId: menuId,
-      category: category,
       name: name,
       description: description,
       price: price,
@@ -54,11 +53,10 @@ Meteor.methods({
     return { success: true };
   },
 
-  'vendor.editMenuItem'({ itemId, menuId, category, name, description, price }) {
+  'vendor.editMenuItem'({ itemId, menuId, name, description, price }) {
     const menuItemState = {
       vendorId: this.userId,
       menuId: menuId,
-      category: category,
       name: name,
       description: description,
       price: price
@@ -82,7 +80,9 @@ Meteor.methods({
   'vendor.makeOrder'({ menuId, vendorId, userId, items }) {
     var totalPrice = 0;
     for (var i=0; i<items.length; i++) {
-      totalPrice += items[i].price;
+      totalPrice += items[i].price
+      // TODO(waihon)
+      items[i].totalPrice = items[i].price;
     }
     const orderState = {
       menuId: menuId,
@@ -113,6 +113,8 @@ Meteor.methods({
     };
 
     Orders.insert(orderState);
+
+    return orderState;
   },
 
   'customer.checkout'() {
@@ -120,8 +122,8 @@ Meteor.methods({
   },
 
   'vendor.analytics.getSalesToday'({ vendorId }) {
-    var start = moment().utcOffset('+08:00').startOf('day').toDate(); // set to 12:00 am today SGT
-    var end = moment().utcOffset('+08:00').endOf('day').toDate(); // set to 23:59 pm today SGT
+    var start = moment().utcOffset('+08:00').startOf('day').toDate();
+    var end = moment().utcOffset('+08:00').endOf('day').toDate();
 
     var menuId = Menus.findOne({ vendorId: vendorId})._id;
 
@@ -134,132 +136,80 @@ Meteor.methods({
     return {result: aggregate};
   },
 
-  'vendor.analytics.getSaleTrend'({ start, end, menu, scale, unit }) {
-    // should return result in format {menuId: [number of order]}
-    // extract the date range into sub range
-    date_range = [];
-    start = moment(start);
-    end = moment(end);
-    temp_start = start;
-    while (temp_start < end) {
-      date_range.push([temp_start, temp_start.add(scale, unit)]);
-      temp_start = temp_start.add(scale, unit);
-    }
+  'vendor.analytics.metric.todayRevenue'({ vendorId }) {
+    // this function will return the revenue made so far in this working day
+    var start = moment().utcOffset('+08:00').startOf('day').toDate();
+    var end = moment().utcOffset('+08:00').endOf('day').toDate();
 
-    // extract the menu record based on date range
-    temp_result = {};
-    var menuId;
-    for (menuId in menu) {
-      temp_result[menuId] = Orders.find({'menuId' : menuId, 'orderTime' : {$gte:start, $lte:end}}, {'orderNum':1, 'orderTime':1}).fetch();
-    }
-
-    // finalize order amount based on sub range
-    result = {};
-    var menuId;
-    for (menuId in menu) {
-      result[menuId] = new Uint8Array(date_range.length);
-
-      var item;
-      for (item in temp_result['menuId']){
-        for (i=0; i<date_range.length; i++){
-          if (moment(item['orderTime']) < date_range[i][1] && moment(item['orderTime'] > date_range[i][0])) {
-            result[menuId] = result[menuId] + item['orderNum'];
-          }
-        }
-      }
-    }
-
-    return result;
-
-  },
-
-  'vendor.analytics.getMenuServings'({ start, end, menu }) {
-    temp_result = {};
-    var menuId;
-    for (menuId in menu) {
-      temp_result[menuId] = Orders.find({'menuId' : menuId, 'orderTime' : {$gte:start, $lte:end}}, {'orderNum':1}).fetch();
-    }
-
-    result = {};
-    var menuId;
-    total = 0
-    for (menuId in menu) {
-      result[menuId] = 0;
-      for (i=0;i<temp_result[menuId].length;i++){
-        result[menuId] = result[menuId] + temp_result[menuId][i]['orderNum'];
-      }
-
-      total = total + result[menuId];
-    }
-
-    return result;
-  },
-
-  'vendor.analytics.customerProfile'({ start, end, indicator }) {
-    // this function is to extract the customers' demographic data
-    // such as the revenue the customers contributed, time of visits
-    temp_result = {};
-    if (start == null || end == null) {
-      query = Customers.find({}).fetch();
-    } else {
-      query = Customers.find({'firstVisitDate' : { $gte : start, $lte : end }}).fetch();
-    }
-
-    if ( indicator == 'revenue' ){
-      result = {};
-      var item;
-      for (item in query) {
-        result[item['userId']] = item['numRevenue'];
-      }
-    } else if (indicator == 'visits'){
-      result = {};
-      var item;
-      for (item in query) {
-        result[item['userId']] = item['numVisits'];
-      }
-    } else {
-      result = {};
-    }
-
-    return result;
-  },
-
-  'vendor.analytics.today_revenue'({ vendorId }){
-    // this funciton will return the revenue made so far in this working day
-    var date = new Date();
-
-    date.setHours(0,0,0,0);
-    var start = date.getTime();
-
-    today_orders = Orders.find({'vendorId' : vendorId, 'orderTime' : {$gte:start}}).fetch();
+    today_orders = Orders.find({
+      'vendorId': vendorId,
+      'orderTime': {$gte:start, $lt:end}
+    }).fetch();
 
     // total revenue
     var total_revenue = 0;
     for (i=0; i < today_orders.length; i++){
       total_revenue = total_revenue + today_orders[i]["totalPrice"];
     }
-    return total_revenue;
+    return total_revenue.toFixed(2);
   },
 
-  'vendor.analytics.today_customers'({ vendorId }){
+  'vendor.analytics.metric.todayCustomers'({ vendorId }) {
     // number of customers today
-    var date = new Date();
-    date.setHours(0,0,0,0);
-    var start = date.getTime();
+    // this function will return the revenue made so far in this working day
+    var start = moment().utcOffset('+08:00').startOf('day').toDate();
+    var end = moment().utcOffset('+08:00').endOf('day').toDate();
 
-    today_orders = Orders.find({'vendorId' : vendorId, 'orderTime' : {$gte:start}}).fetch();
+    today_orders = Orders.find({
+      'vendorId': vendorId,
+      'orderTime': {$gte:start, $lt:end}
+    }).fetch();
 
     return today_orders.length;
   },
 
-  'vendor.analytics.online_customers'({ vendorId }){
+  'vendor.analytics.metric.todayOnlineCustomers'({ vendorId }) {
     // number of online customers today
-    var date = new Date();
-    date.setHours(0,0,0,0);
-    var start = date.getTime();
+    // this function will return the revenue made so far in this working day
+    var start = moment().utcOffset('+08:00').startOf('day').toDate();
+    var end = moment().utcOffset('+08:00').endOf('day').toDate();
 
-    today_orders = Orders.find({'vendorId' : vendorId, 'orderTime' : {$gte:start}, 'isVendor':false}).fetch();
+    today_orders = Orders.find({
+      'vendorId': vendorId,
+      'orderTime': {$gte:start, $lt:end},
+      'isVendor': false
+    }).fetch();
 
     return today_orders.length;
-  }
+  },
+
+  'vendor.analytics.menuBreakdown'({ vendorId }) {
+    // Last 4 weeks, pie chart
+    var start = moment().utcOffset('+08:00').startOf('day').subtract(4,'w').toDate();
+    var end = moment().utcOffset('+08:00').startOf('day').toDate();
+
+    var aggregate = Orders.aggregate([
+      {$match:{ 'vendorId': vendorId, 'orderTime': {$gte:start, $lt:end} }},
+      {$unwind: '$items'},
+      {$group:{ _id: "$items.name", sum_price: {$sum: "$items.totalPrice"} }},
+      {$sort: { sum_price: -1 } }
+    ]);
+
+    return { result: aggregate };
+  },
+
+  'vendor.analytics.getSalesLastFourWeeks'({ vendorId }) {
+    // get sales volume information for past 4 weeks
+    var start = moment().utcOffset('+08:00').startOf('day').subtract(4,'w').toDate();
+    var end = moment().utcOffset('+08:00').startOf('day').toDate();
+
+    var aggregate = Orders.aggregate([
+      {$match:{ 'vendorId': vendorId, 'orderTime': {$gte:start, $lt:end} }},
+      {$project: { "orderTime": 1, "totalPrice": 1, }},
+      {$group: { _id: { $dayOfYear : "$orderTime" }, sum_price: {$sum: "$totalPrice"}, count: {$sum: 1} }},
+      {$sort: { "orderTime": 1 }}
+    ]);
+
+    return {result: aggregate};
+  },
 });

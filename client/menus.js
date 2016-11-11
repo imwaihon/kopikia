@@ -37,7 +37,6 @@ Template.vendorMenu.events({
             {
               menuId: instance.menuObj._id,
               vendorId: Meteor.userId(),
-              category: $('#addMenuItemForm').form('get value', 'item-category'),
               name: $('#addMenuItemForm').form('get value', 'item-name'),
               description: $('#addMenuItemForm').form('get value', 'item-description'),
               price: $('#addMenuItemForm').form('get value', 'item-price'),
