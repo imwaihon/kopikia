@@ -7,13 +7,16 @@ import { Vendors, Orders, Menus } from '/lib/collections.js'
 
 import './main.html';
 
+
 // Highcharts API
 var Highcharts = require('highcharts/highstock');
+
 
 Template.sidebar.events({
     'click #logout': function(event) {
         event.preventDefault();
         Meteor.logout();
+
     },
     'click #statusDashboard': function(event) {
         event.preventDefault();
