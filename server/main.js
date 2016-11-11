@@ -216,9 +216,8 @@ Meteor.methods({
 
     // total revenue
     var total_revenue = 0;
-    var order;
-    for ( order in today_orders ){
-      total_revenue = total_revenue + order['totalPrice'];
+    for (i=0; i < today_orders.length; i++){
+      total_revenue = total_revenue + today_orders[i]["totalPrice"];
     }
     return total_revenue;
   },
