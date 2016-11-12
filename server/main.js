@@ -98,7 +98,8 @@ Meteor.methods({
     var totalPrice = 0;
     for (var i=0; i<items.length; i++) {
       totalPrice += items[i].price * items[i].quantity;
-      items[i].totalPrice = items[i].price * items[i].quantity;
+      // TODO(waihon): Don't do this in real life. Store as 1000s or use Currency Object.
+      items[i].totalPrice = (items[i].price * items[i].quantity).toFixed(2);
     }
     const orderState = {
       menuId: menuId,
@@ -108,7 +109,7 @@ Meteor.methods({
       items: items,
       isVendor: true,
       totalPrice: totalPrice,
-      paymentResolved: true
+      orderResolved: false
     };
 
     Orders.insert(orderState);
@@ -125,7 +126,7 @@ Meteor.methods({
       items: items,
       isVendor: false,
       totalPrice: totalPrice,
-      paymentResolved: true
+      orderResolved: false
     };
 
     Orders.insert(orderState);
@@ -133,8 +134,14 @@ Meteor.methods({
     return orderState;
   },
 
-  'customer.checkout'() {
+  'vendor.completeOrder'({ vendorId, orderId }) {
+    Orders.update({
+      _id: orderId,
+      vendorId: vendorId,
+    },
+    { $set: { orderResolved: true } });
 
+    return { success: true };
   },
 
   'vendor.analytics.getSalesToday'({ vendorId }) {
