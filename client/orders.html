@@ -4,35 +4,40 @@
   <div class="thirteen wide column">
     <div id="topbar" class="ui basic segment">
     </div>
-    <div class="ui divided items">
-      {{#each order in orderList}}
-      <div class="item">
-        <div class="content">
-          <a class="ui large {{order.formattedOrderColor}} header">{{order.formattedOrderType}} Order - Total Price: ${{order.formattedTotalPrice}}</a>
-          <div class="meta">
-            <b>Ordered at: {{order.orderTime}}</b>
-          </div>
-          <div class="extra">
-            <div class="ui middle aligned divided horizontal list">
-            {{#each item in order.items}}
-              <div class="item">
-                <img class="ui small image" src="{{item.imageSource}}">
-                <div class="content">
-                  <a class="ui large header">{{item.name}}</a>
-                  <p>Quantity: {{item.quantity}}</p>
-                  <p>Total Price: {{item.totalPrice}}</p>
+    <h3 class="ui top attached inverted header">
+      Orders in Processing
+    </h3>
+    <div class="ui attached segment container">
+      <div class="ui divided items">
+        {{#each order in orderList}}
+        <div class="item">
+          <div class="content">
+            <a class="ui large {{order.formattedOrderColor}} header">{{order.formattedOrderType}} Order - Total Price: ${{order.formattedTotalPrice}}</a>
+            <div class="meta">
+              <b>Ordered at: {{order.orderTime}}</b>
+            </div>
+            <div class="extra">
+              <div class="ui middle aligned divided horizontal list">
+              {{#each item in order.items}}
+                <div class="item">
+                  <img class="ui small image" src="{{item.imageSource}}">
+                  <div class="content">
+                    <a class="ui large header">{{item.name}}</a>
+                    <p>Quantity: {{item.quantity}}</p>
+                    <p>Total Price: {{item.totalPrice}}</p>
+                  </div>
                 </div>
+              {{/each}}
               </div>
-            {{/each}}
+            </div>
+            <div class="ui positive bottom attached button completeOrder" tabindex="0" data-itemid="{{order._id}}">
+              <i class="ui check icon"></i>
+              Complete Order
             </div>
           </div>
-          <div class="ui positive bottom attached button completeOrder" tabindex="0" data-itemid="{{order._id}}">
-            <i class="ui check icon"></i>
-            Complete Order
-          </div>
         </div>
+        {{/each}}
       </div>
-      {{/each}}
     </div>
   </div>
 </template>
