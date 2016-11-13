@@ -166,10 +166,17 @@ Template.vendorPOS.events({
               console.log(res);
               // TODO(waihon) return some kind of 'sale successful' notif
               LocalSelectedItems.remove({});
-              $('#saleProcessingLoader').removeClass('active');
+
+              return setTimeout(function(){
+                $('#makeSaleModal').modal('hide');
+                $('#saleProcessingLoader').removeClass('active');
+
+              }, 1000);
             }
           );
-        }
+          return false;
+        },
+        closable: false
       })
       .modal('show')
     ;
