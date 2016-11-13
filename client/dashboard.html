@@ -50,68 +50,79 @@
 </template>
 
 <template name="vendorReportDashboard">
-    <div class="one wide column">
-    </div>
-    <div class="thirteen wide column">
-      <div class="ui grid">
-        <div id="topbar" class="ui basic segment">
-        </div>
-        <div class="row">
-          <div class="column">
-            <h3 class="ui top attached inverted header">
-              Sales Overview Over Past 4 Weeks
-            </h3>
-            <div class="ui attached segment container">
-              <div id="reportChart1">{{createReportChart1}}</div>
-            </div>
+  <div class="one wide column">
+  </div>
+  <div class="thirteen wide column">
+    <div class="ui grid">
+      <div id="topbar" class="ui basic segment">
+      </div>
+      <div class="row">
+        <div class="column">
+          <h3 class="ui top attached inverted header">
+            Sales Overview Over Past 4 Weeks
+          </h3>
+          <div class="ui attached segment container">
+            <div id="reportChart1">{{createReportChart1}}</div>
           </div>
         </div>
-        <div class="row">
-          <div class="eight wide column">
-            <h3 class="ui top attached inverted header">
-              Sales In Your Area (S640313)
-            </h3>
-            <div class="ui attached segment container">
-              <div class="ui horizontal large statistics">
-                <div class="ui red statistic">
-                  <i class="red caret down icon"></i>
-                  <div class="value">
-                    1.1 %
-                  </div>
-                  <div class="label">
-                    from last week
-                  </div>
+      </div>
+      <div class="row">
+        <div class="eight wide column">
+          <h3 class="ui top attached inverted header">
+            Sales In Your Area (S640313)
+          </h3>
+          <div class="ui attached segment container">
+            <div class="ui horizontal large statistics">
+              <div class="ui red statistic">
+                <i class="red large caret down icon"></i>
+                <div class="value">
+                  1.1 %
                 </div>
-                <div class="ui green large statistic">
-                  <i class="green caret up icon"></i>
-                  <div class="value">
-                    4.5 %
-                  </div>
-                  <div class="label">
-                    from 4 weeks ago
-                  </div>
+                <div class="label">
+                  from last week
                 </div>
-                <div class="ui green large statistic">
-                  <i class="green caret up icon"></i>
-                  <div class="value">
-                    8.5 %
-                  </div>
-                  <div class="label">
-                    from 8 weeks ago
-                  </div>
+              </div>
+              <div class="ui green large statistic">
+                <i class="green large caret up icon"></i>
+                <div class="value">
+                  4.5 %
+                </div>
+                <div class="label">
+                  from 4 weeks ago
+                </div>
+              </div>
+              <div class="ui green large statistic">
+                <i class="green large caret up icon"></i>
+                <div class="value">
+                  8.5 %
+                </div>
+                <div class="label">
+                  from 8 weeks ago
                 </div>
               </div>
             </div>
           </div>
-          <div class="eight wide column">
-            <h3 class="ui top attached inverted header">
-              Top Menu Item Sales For Past 4 Weeks
-            </h3>
-            <div class="ui attached segment container">
-              <div id="reportChart2">{{createReportChart2}}</div>
-            </div>
+        </div>
+        <div class="eight wide column">
+          <h3 class="ui top attached inverted header">
+            Top Menu Item Sales For Past 4 Weeks
+          </h3>
+          <div class="ui attached segment container">
+            <div id="reportChart2">{{createReportChart2}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <h3 class="ui top attached inverted header">
+            Demand Forecast
+          </h3>
+          <div class="ui attached segment container">
+            <div id="reportChart3">{{createReportChart3}}</div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
