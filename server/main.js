@@ -50,7 +50,7 @@ Meteor.methods({
       menuId: menuId,
       name: name,
       description: description,
-      price: price,
+      price: Number(price),
       quantity: 1,
       imageSource: imageSource
     };
@@ -70,13 +70,14 @@ Meteor.methods({
     return { success: true, menuId: menuId };
   },
 
-  'vendor.editMenuItem'({ itemId, menuId, name, description, price }) {
+  'vendor.editMenuItem'({ itemId, menuId, name, description, price, imageSource }) {
     const menuItemState = {
       vendorId: this.userId,
       menuId: menuId,
       name: name,
       description: description,
-      price: price
+      price: Number(price),
+      imageSource: imageSource
     };
 
     Menus.update(
@@ -90,6 +91,7 @@ Meteor.methods({
           "items.$.name": menuItemState.name,
           "items.$.description": menuItemState.description,
           "items.$.price": menuItemState.price,
+          "items.$.imageSource": menuItemState.imageSource
         }
       }
     );

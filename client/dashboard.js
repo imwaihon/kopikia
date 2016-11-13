@@ -151,7 +151,6 @@ Template.vendorReportDashboard.helpers({
               title: {
                   text: 'Number of Customers'
               },
-              tickInterval: 1,
               opposite: true
           }],
           legend: {

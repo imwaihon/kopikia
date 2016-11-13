@@ -38,6 +38,7 @@ Template.vendorMenu.events({
               name: $('#addMenuItemForm').form('get value', 'item-name'),
               description: $('#addMenuItemForm').form('get value', 'item-description'),
               price: $('#addMenuItemForm').form('get value', 'item-price'),
+              imageSource: $('#editMenuItemForm').form('get value', 'item-imagesource'),
             },
             (err, res) => {
               console.log(res);
@@ -53,6 +54,7 @@ Template.vendorMenu.events({
     $('#editMenuItemForm').form('set value', 'item-name', event.currentTarget.getAttribute('data-itemName'));
     $('#editMenuItemForm').form('set value', 'item-description', event.currentTarget.getAttribute('data-itemDescription'));
     $('#editMenuItemForm').form('set value', 'item-price', event.currentTarget.getAttribute('data-itemPrice'));
+    $('#editMenuItemForm').form('set value', 'item-imagesource', event.currentTarget.getAttribute('data-itemImagesource'));
 
     $('#editMenuItemModal').modal({
         onDeny    : function(){
@@ -76,6 +78,7 @@ Template.vendorMenu.events({
                 name: $('#editMenuItemForm').form('get value', 'item-name'),
                 description: $('#editMenuItemForm').form('get value', 'item-description'),
                 price: $('#editMenuItemForm').form('get value', 'item-price'),
+                imageSource: $('#editMenuItemForm').form('get value', 'item-imagesource'),
               },
               (err, res) => {
                 console.log(res);
@@ -96,6 +99,10 @@ Template.vendorMenu.helpers({
     });
 
     if (menu) {
+      console.log(menu);
+      for (var i=0; i<menu.items.length; i++) {
+        menu.items[i].formattedPrice = menu.items[i].price.toFixed(2);
+      }
       return menu.items;
     }
   }
@@ -148,6 +155,7 @@ Template.vendorPOS.events({
         onDeny    : function(){
         },
         onApprove : function() {
+          $('#saleProcessingLoader').addClass('active');
           Meteor.call('vendor.makeOrder',
             {
               menuId: instance.menuObj._id,
@@ -158,6 +166,7 @@ Template.vendorPOS.events({
               console.log(res);
               // TODO(waihon) return some kind of 'sale successful' notif
               LocalSelectedItems.remove({});
+              $('#saleProcessingLoader').removeClass('active');
             }
           );
         }
@@ -175,12 +184,22 @@ Template.vendorPOS.helpers({
 
     if (menu) {
       console.log(menu);
+      for (var i=0; i<menu.items.length; i++) {
+        menu.items[i].formattedPrice = menu.items[i].price.toFixed(2);
+      }
       return menu.items;
     }
   },
 
   'selectedItems'() {
-    return LocalSelectedItems.find().fetch();
+    var selectedItems = LocalSelectedItems.find().fetch();
+
+    if (selectedItems) {
+      for (var i=0; i<selectedItems.length; i++) {
+        selectedItems[i].formattedPrice = selectedItems[i].price.toFixed(2);
+      }
+      return selectedItems;
+    }
   },
 
   'selectedItemsPrice'() {
