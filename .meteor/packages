@@ -25,9 +25,9 @@ semantic:ui
 less
 kadira:flow-router
 kadira:blaze-layout
-accounts-ui
 accounts-password
 session
 manuel:reactivearray
 meteorhacks:aggregate
 jcbernack:reactive-aggregate
+accounts-ui

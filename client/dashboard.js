@@ -79,7 +79,6 @@ Template.vendorStatusDashboard.helpers({
               title: {
                   text: 'Number of Customers'
               },
-              tickInterval: 1,
               opposite: true
           }],
           legend: {
@@ -199,9 +198,11 @@ Template.vendorReportDashboard.helpers({
           }
 
           for (var i=0; i<data.length; i++) {
+            console.log(data[i].sum_price, total);
             foodList.push([data[i]._id, Number(((data[i].sum_price/total)*100).toFixed(2))]);
           }
         }
+
         // Create the chart
         chart = new Highcharts.Chart({
             chart: {
