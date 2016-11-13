@@ -269,28 +269,40 @@ function populateTestData(userId) {
   });
 
   // Add hard-coded example items with pictures
+  var icedtehcino =
+  {
+    itemId: new Meteor.Collection.ObjectID(),
+    quantity: 1,
+    menuId: menu._id,
+    vendorId: userId,
+    name: "Ice Teh Cino",
+    description: "Iced Teh Cino",
+    price: 1.80,
+    imageSource: "http://i.imgur.com/tk5MEME.jpg"
+  };
+
   var milo =
   {
     itemId: new Meteor.Collection.ObjectID(),
     quantity: 1,
     menuId: menu._id,
     vendorId: userId,
-    name: "Ice Milo",
-    description: "Milo from Singapore with Ice",
+    name: "Milo Dinosaur",
+    description: "Milo Dinosaur from Singapore with Ice",
     price: 1.80,
-    imageSource: "http://g2.onsono.com/1/250/cal/1500/1500/ice-blended-chocolate.jpg"
+    imageSource: "http://i.imgur.com/ExF1Z9n.jpg?1"
   };
 
-  var coffee =
+  var kuih =
   {
     itemId: new Meteor.Collection.ObjectID(),
     quantity: 1,
     menuId: menu._id,
     vendorId: userId,
-    name: "Hot Coffee",
-    description: "Coffee",
+    name: "Kuih Ketayap",
+    description: "Kuih",
     price: 1.30,
-    imageSource: "http://www.phuketcoffeeshop.com/wp-content/uploads/2011/06/2_macchiato.jpg"
+    imageSource: "http://i.imgur.com/kMsCjl1.jpg"
   };
 
   var lemontea =
@@ -316,37 +328,73 @@ function populateTestData(userId) {
     imageSource: "http://ukcdn.ar-cdn.com/recipes/originalxl/e0fcd2d0-1105-46f5-b65c-f7d118ee8969.jpg"
   };
 
-  var chickenrice = {
+  var nasigoreng = {
     itemId: new Meteor.Collection.ObjectID(),
     quantity: 1,
     menuId: menu._id,
     vendorId: userId,
-    name: "Chicken Rice",
-    description: "Hainanese",
+    name: "Nasi Goreng",
+    description: "Rice with Chicken",
     price: 3.00,
-    imageSource: "https://s3-media2.fl.yelpcdn.com/bphoto/QjeNA_VKPZ2ZKDtAys5NeA/ls.jpg"
+    imageSource: "http://i.imgur.com/UJUDxCP.jpg"
   };
 
-  var rotiprata = {
+  var meerebus = {
     itemId: new Meteor.Collection.ObjectID(),
     quantity: 1,
     menuId: menu._id,
     vendorId: userId,
-    name: "Roti Prata",
-    description: "3 pieces/ with curry",
+    name: "Mee Rebus",
+    description: "Traditional Malay noodles with gravy",
     price: 3.50,
-    imageSource: "https://s3-media1.fl.yelpcdn.com/bphoto/4HQou29lLMxHe3RHtl9K3w/ls.jpg"
+    imageSource: "http://i.imgur.com/MKV9ri7.jpg"
+  };
+
+  var nasilemak = {
+    itemId: new Meteor.Collection.ObjectID(),
+    quantity: 1,
+    menuId: menu._id,
+    vendorId: userId,
+    name: "Nasi Lemak",
+    description: "Traditional Malay rice",
+    price: 3.00,
+    imageSource: "http://i.imgur.com/Fom5dlO.jpg"
+  };
+
+  var satay = {
+    itemId: new Meteor.Collection.ObjectID(),
+    quantity: 1,
+    menuId: menu._id,
+    vendorId: userId,
+    name: "Satay",
+    description: "Traditional Malay Skewers",
+    price: 1.50,
+    imageSource: "http://i.imgur.com/E1j0PZa.jpg"
+  };
+
+  var tauhugoreng = {
+    itemId: new Meteor.Collection.ObjectID(),
+    quantity: 1,
+    menuId: menu._id,
+    vendorId: userId,
+    name: "Tauhu Goreng",
+    description: "",
+    price: 1.70,
+    imageSource: "http://i.imgur.com/fPSr8RN.jpg"
   };
 
   // set variables for convenience
   var menuId = menu._id;
 
   Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": milo}});
-  Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": coffee}});
+  Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": kuih}});
   Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": lemontea}});
   Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": kayatoast}});
-  Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": chickenrice}});
-  Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": rotiprata}});
+  Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": nasigoreng}});
+  Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": meerebus}});
+  Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": nasilemak}});
+  Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": satay}});
+  Menus.update({_id: menuId,vendorId: userId,},{$push: {"items": tauhugoreng}});
 
   // Helper function to create lots of dummy/test orders.
   function makeTestOrder(menuId, vendorId, time, numberOfTimes, isOnline, isResolved, items) {
@@ -390,31 +438,31 @@ function populateTestData(userId) {
   makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(21, 'h').toDate(), 5, true, true, [milo, lemontea]);
   makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(22, 'h').toDate(), 2, true, false, [milo, lemontea]);
 
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(7, 'h').toDate(), 5, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(8, 'h').toDate(), 5, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(9, 'h').toDate(), 5, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(10, 'h').toDate(), 7, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(11, 'h').toDate(), 9, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(12, 'h').toDate(), 12, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(13, 'h').toDate(), 11, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(14, 'h').toDate(), 10, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(15, 'h').toDate(), 8, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(16, 'h').toDate(), 7, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(17, 'h').toDate(), 6, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(18, 'h').toDate(), 9, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(19, 'h').toDate(), 14, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(20, 'h').toDate(), 16, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(21, 'h').toDate(), 4, false, true, [coffee, rotiprata, chickenrice]);
-  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(22, 'h').toDate(), 2, false, false, [coffee, rotiprata, chickenrice]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(7, 'h').toDate(), 5, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(8, 'h').toDate(), 5, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(9, 'h').toDate(), 5, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(10, 'h').toDate(), 7, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(11, 'h').toDate(), 9, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(12, 'h').toDate(), 12, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(13, 'h').toDate(), 11, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(14, 'h').toDate(), 10, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(15, 'h').toDate(), 8, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(16, 'h').toDate(), 7, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(17, 'h').toDate(), 6, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(18, 'h').toDate(), 9, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(19, 'h').toDate(), 14, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(20, 'h').toDate(), 16, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(21, 'h').toDate(), 4, false, true, [kuih, meerebus, nasigoreng]);
+  makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').add(22, 'h').toDate(), 2, false, false, [kuih, meerebus, nasigoreng]);
 
 
   // 'Historical' data, I will just use 1 time since it doesnt affect our graphs. Give a varied distribution.
   for (var i=1; i<=28; i++) {
     var variation = Math.floor((Math.random() * 20) + 1);
     makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').subtract(i, 'd').add(7, 'h').toDate(), 45+variation, true, true, [milo]);
-    makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').subtract(i, 'd').add(7, 'h').toDate(), 60+variation, true, true, [coffee]);
-    makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').subtract(i, 'd').add(7, 'h').toDate(), 35+variation, false, true, [rotiprata]);
-    makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').subtract(i, 'd').add(7, 'h').toDate(), 25+variation, false, true, [chickenrice]);
+    makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').subtract(i, 'd').add(7, 'h').toDate(), 60+variation, true, true, [kuih]);
+    makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').subtract(i, 'd').add(7, 'h').toDate(), 35+variation, false, true, [meerebus]);
+    makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').subtract(i, 'd').add(7, 'h').toDate(), 25+variation, false, true, [nasigoreng]);
     makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').subtract(i, 'd').add(7, 'h').toDate(), 50+variation, false, true, [kayatoast]);
     makeTestOrder(menuId, userId, moment().utcOffset('+08:00').startOf('day').subtract(i, 'd').add(7, 'h').toDate(), 43+variation, false, true, [lemontea]);
   }
